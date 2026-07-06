@@ -192,7 +192,7 @@ export function useAppState() {
       setIsQuestionCorrect(true);
       // Play correct sound
       if (settings.soundEnabled) {
-        playAudio(true);
+        playAudio('correct');
       }
       
       // If first attempt is correct, reward full score point for this question
@@ -223,7 +223,7 @@ export function useAppState() {
       setIsQuestionCorrect(false);
       // Play wrong sound
       if (settings.soundEnabled) {
-        playAudio(false);
+        playAudio('incorrect');
       }
     }
   };
@@ -234,6 +234,9 @@ export function useAppState() {
     if (questionIndex + 1 >= totalTestQuestions) {
       // Test complete
       setCompletedTest(true);
+      if (settings.soundEnabled && testScore >= 8) {
+        playAudio('confetti');
+      }
       
       const newRecord: GameRecord = {
         id: `game-${Date.now()}`,
@@ -275,38 +278,93 @@ export function useAppState() {
   };
 
   // Helper to synthesize cheerful sound effects locally using Web Audio API
-  const playAudio = (isCorrect: boolean) => {
+  const playAudio = (type: 'correct' | 'incorrect' | 'confetti') => {
     try {
       const audioCtx = new (window.AudioContext || (window as any).webkitAudioContext)();
-      const osc = audioCtx.createOscillator();
-      const gain = audioCtx.createGain();
-      osc.connect(gain);
-      gain.connect(audioCtx.destination);
-
       const now = audioCtx.currentTime;
 
-      if (isCorrect) {
-        // High ascending chord (Cheerful sound)
-        osc.type = 'triangle';
-        osc.frequency.setValueAtTime(523.25, now); // C5
-        osc.frequency.setValueAtTime(659.25, now + 0.1); // E5
-        osc.frequency.setValueAtTime(783.99, now + 0.2); // G5
-        osc.frequency.setValueAtTime(1046.5, now + 0.3); // C6
-        gain.gain.setValueAtTime(0, now);
-        gain.gain.linearRampToValueAtTime(0.15, now + 0.05);
-        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.6);
-        osc.start(now);
-        osc.stop(now + 0.6);
+      if (type === 'confetti') {
+        const mainGain = audioCtx.createGain();
+        mainGain.connect(audioCtx.destination);
+        mainGain.gain.setValueAtTime(0.4, now);
+
+        // 1. Pop Sound (simulating the confetti popper)
+        const popOsc = audioCtx.createOscillator();
+        const popGain = audioCtx.createGain();
+        popOsc.connect(popGain);
+        popGain.connect(mainGain);
+        
+        popOsc.type = 'sine';
+        popOsc.frequency.setValueAtTime(150, now);
+        popOsc.frequency.exponentialRampToValueAtTime(30, now + 0.15);
+        
+        popGain.gain.setValueAtTime(0.8, now);
+        popGain.gain.exponentialRampToValueAtTime(0.001, now + 0.15);
+        
+        popOsc.start(now);
+        popOsc.stop(now + 0.15);
+
+        // 2. Sparkle Chimes (7 notes ascending rapidly)
+        const notes = [523.25, 659.25, 783.99, 1046.50, 1318.51, 1567.98, 2093.00];
+        notes.forEach((freq, idx) => {
+          const timeOffset = idx * 0.07;
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          
+          osc.connect(gain);
+          gain.connect(mainGain);
+          
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(freq, now + timeOffset);
+          
+          // Add subtle vibrato (frequency modulation) to make it shimmer
+          if (idx % 2 === 0) {
+            const lfo = audioCtx.createOscillator();
+            const lfoGain = audioCtx.createGain();
+            lfo.frequency.value = 15;
+            lfoGain.gain.value = 15;
+            lfo.connect(lfoGain);
+            lfoGain.connect(osc.frequency);
+            lfo.start(now + timeOffset);
+            lfo.stop(now + timeOffset + 0.4);
+          }
+
+          gain.gain.setValueAtTime(0, now + timeOffset);
+          gain.gain.linearRampToValueAtTime(0.3, now + timeOffset + 0.03);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + timeOffset + 0.45);
+          
+          osc.start(now + timeOffset);
+          osc.stop(now + timeOffset + 0.5);
+        });
       } else {
-        // Soft sliding down chord / bonk (No punishment, just warm alert)
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(220, now); // A3
-        osc.frequency.exponentialRampToValueAtTime(150, now + 0.3);
-        gain.gain.setValueAtTime(0, now);
-        gain.gain.linearRampToValueAtTime(0.15, now + 0.05);
-        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
-        osc.start(now);
-        osc.stop(now + 0.35);
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+
+        if (type === 'correct') {
+          // High ascending chord (Cheerful sound - volume increased from 0.15 to 0.45)
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(523.25, now); // C5
+          osc.frequency.setValueAtTime(659.25, now + 0.1); // E5
+          osc.frequency.setValueAtTime(783.99, now + 0.2); // G5
+          osc.frequency.setValueAtTime(1046.5, now + 0.3); // C6
+          gain.gain.setValueAtTime(0, now);
+          gain.gain.linearRampToValueAtTime(0.45, now + 0.05);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.6);
+          osc.start(now);
+          osc.stop(now + 0.6);
+        } else {
+          // Soft sliding down chord / bonk (No punishment, just warm alert - volume increased from 0.15 to 0.35)
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(220, now); // A3
+          osc.frequency.exponentialRampToValueAtTime(150, now + 0.3);
+          gain.gain.setValueAtTime(0, now);
+          gain.gain.linearRampToValueAtTime(0.35, now + 0.05);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
+          osc.start(now);
+          osc.stop(now + 0.35);
+        }
       }
     } catch (e) {
       console.warn('Audio feedback failed to play:', e);
