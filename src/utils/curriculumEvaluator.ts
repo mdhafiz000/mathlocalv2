@@ -106,15 +106,16 @@ export function generateVariable(definition: string, context: Record<string, any
   // 2. Check for list selection: choose(item1, item2, item3)
   const chooseMatch = def.match(/^choose\((.+)\)$/);
   if (chooseMatch) {
-    const items = chooseMatch[1].split(',').map(s => {
-      const trimmed = s.trim();
-      if (/^['"].*['"]$/.test(trimmed)) {
-        return trimmed.slice(1, -1);
-      }
-      const num = Number(trimmed);
-      return isNaN(num) || trimmed === '' ? trimmed : num;
-    });
-    return items[Math.floor(Math.random() * items.length)];
+    const items = chooseMatch[1].split(',').map(s => s.trim());
+    const chosen = items[Math.floor(Math.random() * items.length)];
+    if (/^['"].*['"]$/.test(chosen)) {
+      return chosen.slice(1, -1);
+    }
+    const num = Number(chosen);
+    if (!isNaN(num) && chosen !== '') {
+      return num;
+    }
+    return evaluateExpression(chosen, context);
   }
 
   // 3. Fall back to standard expression evaluation
