@@ -237,9 +237,10 @@ export default function App() {
     return (
       <div className="app-main flex items-center justify-center">
         <div className="chunky-card max-w-md w-full text-center">
-          <h1 className="text-primary mb-2">👋 Welcome!</h1>
+          <h1 className="text-primary mb-2">👋 Welcome to MathX</h1>
           <p className="mb-6 font-medium text-slate-600">
-            Let's create the first player account. Siblings can add up to 4 accounts later!
+            Free math quiz. Up to 4 players on 1 device.<br/>
+            Let's create the first player account. Friends can add up to 4 accounts later!
           </p>
           <form onSubmit={handleCreateSubmit} className="flex flex-col gap-4 text-left">
             <div>
@@ -330,8 +331,8 @@ export default function App() {
                     <div className="avatar-badge text-3xl bg-slate-200 flex items-center justify-center font-bold">
                       +
                     </div>
-                    <div className="user-card-name text-slate-400">Add Sibling</div>
-                    <div className="text-xs font-bold text-slate-400">Tambah Ahli</div>
+                    <div className="user-card-name text-slate-400">Add Friend</div>
+                    <div className="text-xs font-bold text-slate-400">Tambah Rakan</div>
                   </div>
                 )}
               </div>
@@ -343,7 +344,7 @@ export default function App() {
             </>
           ) : (
             <div className="text-left max-w-md mx-auto">
-              <h3 className="text-center font-fun text-xl mb-4">Add a New Player / Tambah Sibling</h3>
+              <h3 className="text-center font-fun text-xl mb-4">Add a New Player / Tambah Rakan</h3>
               <form onSubmit={handleCreateSubmit} className="flex flex-col gap-4">
                 <div>
                   <label className="block font-bold mb-1">Name:</label>
@@ -388,7 +389,7 @@ export default function App() {
                     Back
                   </button>
                   <button type="submit" className="chunky-btn chunky-btn-primary flex-1">
-                    Add Sibling
+                    Add Friend
                   </button>
                 </div>
               </form>
