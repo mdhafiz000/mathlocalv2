@@ -95,8 +95,8 @@ export const MathVisualizer: React.FC<MathVisualizerProps> = ({ visualType, visu
 // ==========================================
 // 1. COUNTING VISUALIZER (Grid of icons)
 // ==========================================
-const CountingVisualizer: React.FC<{ data: { count: number; item: string } }> = ({ data }) => {
-  const { count, item } = data;
+const CountingVisualizer: React.FC<{ data: { count: number; item: string; icon?: string } }> = ({ data }) => {
+  const { count, item, icon } = data;
 
   const renderIcon = (index: number) => {
     const size = 64;
@@ -192,7 +192,35 @@ const CountingVisualizer: React.FC<{ data: { count: number; item: string } }> = 
           </svg>
         );
       case 'butterfly':
+        return (
+          <svg key={index} width={size} height={size} viewBox="0 0 24 24" className="counting-icon animate-bounce-slow">
+            <defs>
+              <linearGradient id="wing-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#D35400" />
+                <stop offset="100%" stopColor="#E67E22" />
+              </linearGradient>
+            </defs>
+            {/* Left wings */}
+            <path fill="url(#wing-grad)" stroke="#A04000" strokeWidth="1" d="M12 12C9 5 2 7 4 12c-2 5 5 7 8 0" />
+            {/* Right wings */}
+            <path fill="url(#wing-grad)" stroke="#A04000" strokeWidth="1" d="M12 12c3-7 10-5 8 0c2 5-5 7-8 0" />
+            {/* Body */}
+            <rect x="11.25" y="4" width="1.5" height="15" fill="#2C3E50" rx="0.75" />
+            <path d="M11 4C9 2 9 1 9 1M13 4C15 2 15 1 15 1" fill="none" stroke="#2C3E50" strokeWidth="1.2" />
+          </svg>
+        );
       default:
+        if (icon) {
+          return (
+            <div 
+              key={index} 
+              style={{ width: size, height: size, fontSize: '3.2rem' }}
+              className="counting-icon animate-bounce-slow flex items-center justify-center select-none"
+            >
+              {icon}
+            </div>
+          );
+        }
         return (
           <svg key={index} width={size} height={size} viewBox="0 0 24 24" className="counting-icon animate-bounce-slow">
             <defs>
