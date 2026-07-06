@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { generateQuestion, type MathQuestion } from '../utils/mathEngine';
 
 export interface GameRecord {
@@ -182,6 +182,29 @@ export function useAppState() {
     setCurrentView('practice');
   };
 
+  // Keep a mutable ref to the latest state to avoid stale closures in timeouts
+  const latestStateRef = useRef({
+    testScore,
+    questionIndex,
+    users,
+    activeUserId,
+    activeTopic,
+    activeYear,
+    settings,
+  });
+
+  useEffect(() => {
+    latestStateRef.current = {
+      testScore,
+      questionIndex,
+      users,
+      activeUserId,
+      activeTopic,
+      activeYear,
+      settings,
+    };
+  });
+
   const submitAnswer = (selectedAnswer: string) => {
     if (!currentQuestion || isQuestionCorrect === true) return;
 
@@ -190,13 +213,21 @@ export function useAppState() {
 
     if (isCorrect) {
       setIsQuestionCorrect(true);
-      // Play correct sound
-      if (settings.soundEnabled) {
-        playAudio('correct');
-      }
       
       // If first attempt is correct, reward full score point for this question
       const isFirstAttemptCorrect = attempts === 0;
+      const finalScore = testScore + (isFirstAttemptCorrect ? 1 : 0);
+
+      // Play correct or confetti sound (triggered directly by user interaction click)
+      if (settings.soundEnabled) {
+        const isLastQuestion = questionIndex + 1 >= totalTestQuestions;
+        if (isLastQuestion && finalScore >= 8) {
+          playAudio('confetti');
+        } else {
+          playAudio('correct');
+        }
+      }
+      
       if (isFirstAttemptCorrect) {
         setTestScore((prev) => prev + 1);
       }
@@ -229,27 +260,34 @@ export function useAppState() {
   };
 
   const nextQuestion = () => {
-    if (!activeUser || !activeTopic) return;
+    const {
+      testScore: latestScore,
+      questionIndex: latestQIdx,
+      users: latestUsers,
+      activeUserId: latestUserId,
+      activeTopic: latestTopic,
+      activeYear: latestYear,
+    } = latestStateRef.current;
 
-    if (questionIndex + 1 >= totalTestQuestions) {
+    const activeUserObj = latestUsers.find((u) => u.id === latestUserId) || null;
+    if (!activeUserObj || !latestTopic) return;
+
+    if (latestQIdx + 1 >= totalTestQuestions) {
       // Test complete
       setCompletedTest(true);
-      if (settings.soundEnabled && testScore >= 8) {
-        playAudio('confetti');
-      }
       
       const newRecord: GameRecord = {
         id: `game-${Date.now()}`,
         timestamp: new Date().toISOString(),
-        topic: activeTopic,
-        year: activeYear,
-        score: testScore, // Use the correct accumulated score directly
+        topic: latestTopic,
+        year: latestYear,
+        score: latestScore, // Use the correct accumulated score from ref
         totalQuestions: totalTestQuestions,
       };
 
       setUsers(
-        users.map((u) => {
-          if (u.id === activeUserId) {
+        latestUsers.map((u) => {
+          if (u.id === latestUserId) {
             const updatedRecent = [newRecord, ...u.recentGames].slice(0, 10);
             return {
               ...u,
@@ -265,10 +303,10 @@ export function useAppState() {
       setAttempts(0);
       setIsQuestionCorrect(null);
       
-      let q = generateQuestion(activeYear, activeTopic);
+      let q = generateQuestion(latestYear, latestTopic);
       let dedupeAttempts = 0;
       while (usedQuestionTexts.includes(q.questionEn) && dedupeAttempts < 15) {
-        q = generateQuestion(activeYear, activeTopic);
+        q = generateQuestion(latestYear, latestTopic);
         dedupeAttempts++;
       }
       
