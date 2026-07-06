@@ -237,10 +237,10 @@ export default function App() {
     return (
       <div className="app-main flex items-center justify-center">
         <div className="chunky-card max-w-md w-full text-center">
-          <h1 className="text-primary mb-2">👋 Welcome to MathX</h1>
+          <h1 className="text-primary mb-2">👋 MatX</h1>
           <p className="mb-6 font-medium text-slate-600">
-            Free math quiz. Up to 4 players on 1 device.<br/>
-            Let's create the first player account. Friends can add up to 4 accounts later!
+            Welcome to Free Math Quiz. Up to 4 players on 1 device.<br/>
+            Let's create the first player account! We can add your friends later.
           </p>
           <form onSubmit={handleCreateSubmit} className="flex flex-col gap-4 text-left">
             <div>
@@ -258,15 +258,15 @@ export default function App() {
               <label className="block font-bold mb-1">Age / Umur: ({editingAge} years)</label>
               <input
                 type="range"
-                min="5"
+                min="7"
                 max="12"
                 value={editingAge}
                 onChange={(e) => setEditingAge(Number(e.target.value))}
                 className="w-full accent-purple-600"
               />
               <div className="flex justify-between text-sm text-slate-500 font-bold">
-                <span>5 yrs</span>
-                <span>8 yrs</span>
+                <span>7 yrs</span>
+                <span>9 yrs</span>
                 <span>12 yrs</span>
               </div>
             </div>
@@ -361,7 +361,7 @@ export default function App() {
                   <label className="block font-bold mb-1">Age: ({editingAge} years)</label>
                   <input
                     type="range"
-                    min="5"
+                    min="7"
                     max="12"
                     value={editingAge}
                     onChange={(e) => setEditingAge(Number(e.target.value))}
@@ -708,7 +708,7 @@ export default function App() {
                 <label className="block font-bold mb-1">Age: ({editingAge} years)</label>
                 <input
                   type="range"
-                  min="5"
+                  min="7"
                   max="12"
                   value={editingAge}
                   onChange={(e) => setEditingAge(Number(e.target.value))}
