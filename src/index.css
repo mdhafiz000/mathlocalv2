@@ -1,0 +1,1175 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Outfit:wght@100..900&display=swap');
+
+/* Hide browser scrollbars globally but keep scrolling active */
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none;
+}
+
+html, body {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+:root {
+  /* Cheerful, vibrant color palette */
+  --bg-sky: #e0f2fe;
+  --bg-land: #fef08a;
+  
+  --color-primary: #8b5cf6;     /* Playful Purple */
+  --color-secondary: #06b6d4;   /* Sky Blue */
+  --color-success: #10b981;     /* Sweet Mint Green */
+  --color-warning: #f59e0b;     /* Sunny Orange */
+  --color-danger: #ef4444;      /* Candy Red */
+  
+  --color-dark: #1e293b;
+  --color-light: #ffffff;
+  --color-cream: #fdfaf2;
+  
+  --font-fun: 'Fredoka', system-ui, -apple-system, sans-serif;
+  --font-body: 'Outfit', system-ui, -apple-system, sans-serif;
+
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-body);
+  background: linear-gradient(180deg, #e2f1fc 0%, #fffde6 100%);
+  min-height: 100vh;
+  color: var(--color-dark);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  overflow-x: hidden;
+  user-select: none;
+  font-size: 19px; /* Slightly adjusted base font size */
+}
+
+#root {
+  width: 100%;
+  max-width: 1024px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 14px;
+  margin: 0 auto; /* Explicitly center */
+  position: relative;
+  box-sizing: border-box;
+  
+  @media (min-width: 768px) {
+    padding: 24px;
+    min-height: 90vh;
+  }
+}
+
+/* ==========================================
+   SEMANTIC UTILITY STYLES (Tailwind mapping)
+   ========================================== */
+
+/* Flexbox utilities */
+.flex { display: flex; }
+.flex-col { flex-direction: column; }
+.flex-wrap { flex-wrap: wrap; }
+.flex-1 { flex: 1 1 0%; }
+.flex-grow { flex-grow: 1; }
+
+.justify-center { justify-content: center; }
+.justify-between { justify-content: space-between; }
+.justify-around { justify-content: space-around; }
+.items-center { align-items: center; }
+
+/* Grid utilities */
+.grid { display: grid; }
+.grid-cols-2 { 
+  grid-template-columns: 1fr;
+  @media (min-width: 480px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Gap utilities */
+.gap-2 { gap: 12px; }
+.gap-3 { gap: 18px; }
+.gap-4 { gap: 24px; }
+.gap-6 { gap: 32px; }
+
+/* Sizing */
+.w-full { width: 100%; }
+.max-w-md { max-width: 500px; }
+.max-w-xl { max-width: 700px; }
+.max-w-2xl { max-width: 900px; }
+.mx-auto { margin-left: auto; margin-right: auto; }
+.block { display: block; }
+
+/* Padding */
+.p-3 { padding: 16px; }
+.p-4 { padding: 24px; }
+.p-6 { padding: 36px; }
+.pb-8 { padding-bottom: 36px; }
+
+/* Margins */
+.mb-1 { margin-bottom: 6px; }
+.mb-2 { margin-bottom: 12px; }
+.mb-3 { margin-bottom: 18px; }
+.mb-4 { margin-bottom: 24px; }
+.mb-6 { margin-bottom: 32px; }
+.mb-8 { margin-bottom: 40px; }
+.mt-2 { margin-top: 12px; }
+.mt-4 { margin-top: 24px; }
+.ml-2 { margin-left: 12px; }
+
+/* Text alignments */
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+.font-bold { font-weight: 600; }
+.font-medium { font-weight: 500; }
+
+/* Typographic sizes (Bigger & highly readable) */
+.text-xs { font-size: 0.85rem; }
+.text-sm { font-size: 1.05rem; }
+.text-base { font-size: 1.2rem; }
+.text-lg { font-size: 1.35rem; }
+.text-xl { font-size: 1.6rem; }
+.text-2xl { font-size: 1.9rem; }
+.text-3xl { font-size: 2.3rem; }
+.text-4xl { font-size: 3rem; }
+.text-5xl { font-size: 4rem; }
+
+/* Color overrides */
+.text-primary { color: var(--color-primary); }
+.text-success { color: #047857; } /* Darker green for text readability */
+.text-warning { color: #b45309; } /* Darker orange for readability */
+.text-danger { color: #b91c1c; }
+.text-slate-800 { color: #1e293b; }
+.text-slate-700 { color: #334155; }
+.text-slate-600 { color: #475569; }
+.text-slate-500 { color: #64748b; }
+.text-slate-400 { color: #94a3b8; }
+
+/* Backgrounds */
+.bg-white { background-color: #ffffff; }
+.bg-purple-50 { background-color: #faf5ff; }
+.bg-emerald-50 { background-color: #f0fdf4; }
+.bg-amber-50 { background-color: #fffbeb; }
+
+/* Borders & Rounding */
+.border-2 { border: 3px solid var(--color-dark); } /* Make borders chunkier */
+.border-3 { border: 4px solid var(--color-dark); }
+.border-dashed { border-style: dashed !important; }
+.rounded-xl { border-radius: 18px; }
+.rounded-2xl { border-radius: 28px; }
+.rounded-3xl { border-radius: 36px; }
+
+/* ==========================================
+   CHUNKY FORMS & CONTROLS
+   ========================================== */
+
+/* Styled Name input */
+input[type="text"] {
+  border: 4px solid var(--color-dark);
+  border-radius: 18px;
+  padding: 14px 20px;
+  font-family: var(--font-fun);
+  font-size: 1.3rem;
+  width: 100%;
+  box-shadow: inset 0 4px 0 rgba(0,0,0,0.06);
+  background: var(--color-light);
+  color: var(--color-dark);
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+input[type="text"]:focus {
+  border-color: var(--color-primary);
+}
+
+/* Styled range slider */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  background: transparent;
+  margin: 18px 0;
+}
+
+input[type="range"]:focus {
+  outline: none;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 16px;
+  cursor: pointer;
+  background: #cbd5e1;
+  border-radius: 8px;
+  border: 3px solid var(--color-dark);
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  height: 32px;
+  width: 32px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  border: 3px solid var(--color-dark);
+  cursor: pointer;
+  -webkit-appearance: none;
+  margin-top: -11px;
+  box-shadow: 0 4px 0 var(--color-dark);
+}
+
+/* Styled Select Dropdown */
+select {
+  border: 4px solid var(--color-dark);
+  border-radius: 18px;
+  padding: 12px 18px;
+  font-family: var(--font-fun);
+  font-size: 1.15rem;
+  font-weight: 600;
+  background-color: var(--color-light);
+  box-shadow: 0 6px 0 var(--color-dark);
+  cursor: pointer;
+  outline: none;
+  transition: transform 0.1s, box-shadow 0.1s;
+}
+
+select:active {
+  transform: translateY(4px);
+  box-shadow: 0 2px 0 var(--color-dark);
+}
+
+/* ==========================================
+   THEMED DESIGN SYSTEMS (Mascot, Arena, Cards)
+   ========================================== */
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-fun);
+  font-weight: 600; /* Softer, easier on the eyes */
+  margin-top: 0;
+  color: var(--color-dark);
+}
+
+h1 {
+  font-size: 2.5rem;
+  line-height: 1.2;
+  @media (min-width: 768px) {
+    font-size: 3.5rem;
+  }
+}
+
+h2 {
+  font-size: 1.8rem;
+  @media (min-width: 768px) {
+    font-size: 2.2rem;
+  }
+}
+
+/* Chunky Card Style */
+.chunky-card {
+  background: var(--color-light);
+  border: 4px solid var(--color-dark);
+  border-radius: 32px;
+  box-shadow: 0 14px 0 var(--color-dark);
+  padding: 32px;
+  transition: transform 0.2s, box-shadow 0.2s;
+  position: relative;
+  overflow: hidden;
+  
+  @media (max-width: 480px) {
+    padding: 20px;
+  }
+}
+
+/* Welcome/Player Selection card spacing & compression prevent */
+.welcome-card {
+  padding-bottom: 56px !important;
+  overflow: visible !important;
+  flex-shrink: 0 !important;
+}
+
+.reset-btn-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: 56px; /* Guaranteed wide gap below user cards */
+  margin-bottom: 8px;
+}
+
+/* Interactive Chunky Buttons */
+.chunky-btn {
+  font-family: var(--font-fun);
+  font-weight: 600;
+  font-size: 1.15rem; /* slightly smaller to fit text better on tablet */
+  line-height: 1.25;  /* prevent overlapping lines */
+  padding: 10px 20px; /* softer padding */
+  border-radius: 22px;
+  border: 4px solid var(--color-dark);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: all 0.15s ease-out;
+  outline: none;
+  min-height: 56px; /* High accessibility touch target */
+  min-width: 56px;
+  text-decoration: none;
+  
+  /* Chunky bottom shadow effect */
+  box-shadow: 0 6px 0 var(--color-dark);
+  transform: translateY(0);
+}
+
+.chunky-btn:active {
+  transform: translateY(6px);
+  box-shadow: 0 0px 0 var(--color-dark);
+}
+
+.chunky-btn-primary {
+  background-color: var(--color-primary);
+  color: var(--color-light);
+}
+.chunky-btn-primary:hover {
+  background-color: #7c3aed;
+}
+
+.chunky-btn-secondary {
+  background-color: var(--color-secondary);
+  color: var(--color-light);
+}
+.chunky-btn-secondary:hover {
+  background-color: #0891b2;
+}
+
+.chunky-btn-success {
+  background-color: var(--color-success);
+  color: var(--color-light);
+}
+.chunky-btn-success:hover {
+  background-color: #059669;
+}
+
+.chunky-btn-warning {
+  background-color: var(--color-warning);
+  color: var(--color-dark);
+}
+.chunky-btn-warning:hover {
+  background-color: #d97706;
+}
+
+.chunky-btn-danger {
+  background-color: var(--color-danger);
+  color: var(--color-light);
+}
+.chunky-btn-danger:hover {
+  background-color: #dc2626;
+}
+
+.chunky-btn-light {
+  background-color: var(--color-light);
+  color: var(--color-dark);
+}
+.chunky-btn-light:hover {
+  background-color: #f1f5f9;
+}
+
+/* Avatar Badge Styles */
+.avatar-badge {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  border: 4px solid var(--color-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3.2rem;
+  box-shadow: 0 6px 0 var(--color-dark);
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  background-color: #ffffff;
+}
+
+.avatar-badge:hover {
+  transform: scale(1.08) rotate(3deg);
+  box-shadow: 0 8px 0 var(--color-dark);
+}
+
+.avatar-badge.active {
+  transform: scale(1.1) translateY(-4px);
+  box-shadow: 0 10px 0 var(--color-dark);
+  animation: float 2.5s infinite ease-in-out;
+}
+
+/* Layout Parts */
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px; /* Moved closer to the nav bar */
+  width: 100%;
+  background: rgba(255, 255, 255, 0.4);
+  padding: 16px 24px;
+  border: 4px solid var(--color-dark);
+  border-radius: 28px;
+  box-shadow: 0 6px 0 var(--color-dark);
+  
+  @media (max-width: 640px) {
+    flex-direction: column;
+    gap: 16px;
+    align-items: stretch;
+    text-align: center;
+    .flex { justify-content: center; }
+  }
+}
+
+.header-control {
+  height: 44px;
+  border: 3px solid var(--color-dark);
+  border-radius: 14px;
+  font-family: var(--font-fun);
+  font-weight: 600;
+  font-size: 0.95rem;
+  background-color: var(--color-light);
+  color: var(--color-dark);
+  box-shadow: 0 4px 0 var(--color-dark);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 16px;
+  cursor: pointer;
+  outline: none;
+  transition: transform 0.1s, box-shadow 0.1s;
+}
+
+.header-control:active {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 var(--color-dark);
+}
+
+select.header-control {
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: none;
+  padding: 0 12px;
+  text-align-last: center;
+}
+
+.text-truncate {
+  max-width: 140px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+@media (max-width: 640px) {
+  .text-truncate {
+    max-width: 80px;
+  }
+}
+
+.app-main {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 100%;
+  margin-top: 8px;
+}
+
+/* User Selection Page grid */
+.user-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  max-width: 480px;
+  margin: 0 auto;
+  
+  @media (min-width: 640px) {
+    grid-template-columns: repeat(4, 1fr);
+    max-width: 100%;
+  }
+}
+
+.user-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  padding: 24px 16px;
+  cursor: pointer;
+}
+
+.user-card-name {
+  font-family: var(--font-fun);
+  font-size: 1.35rem;
+  font-weight: bold;
+}
+
+/* HUD elements */
+.hud-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  width: 100%;
+  padding: 18px 24px;
+  background: rgba(255, 255, 255, 0.85);
+  border: 4px solid var(--color-dark);
+  border-radius: 24px;
+  margin-bottom: 24px;
+  box-shadow: 0 6px 0 var(--color-dark);
+  
+  @media (max-width: 640px) {
+    flex-direction: column;
+    gap: 12px;
+    text-align: center;
+  }
+}
+
+.hud-item {
+  font-family: var(--font-fun);
+  font-size: 1.35rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+/* Progress bar (sleeker design) */
+.progress-container {
+  width: 100%;
+  background-color: #cbd5e1;
+  border: 3px solid var(--color-dark);
+  height: 18px;
+  border-radius: 9px;
+  overflow: hidden;
+  margin: 12px 0 16px;
+  position: relative;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.progress-fill {
+  background-color: var(--color-success);
+  height: 100%;
+  transition: width 0.4s ease-out;
+  border-right: 3px solid var(--color-dark);
+}
+
+/* Practice layout */
+.practice-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+  width: 100%;
+  
+  @media (min-width: 768px) {
+    grid-template-columns: 1.4fr 1fr;
+  }
+}
+
+/* Fixed height layouts inside practice card for vertical alignment stability */
+.practice-question-text-container {
+  min-height: 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.practice-visualizer-container {
+  min-height: 140px;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 8px 0;
+}
+
+/* Groups and Sharing Visualizer */
+.groups-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: center;
+  align-items: center;
+  margin: 12px 0;
+  width: 100%;
+}
+
+.group-box {
+  border: 3px solid #8B5CF6;
+  border-radius: 20px;
+  background-color: #F5F3FF;
+  padding: 12px;
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+  align-items: center;
+  min-width: 64px;
+  min-height: 64px;
+  box-shadow: 0 4px 0 #8B5CF6;
+}
+
+.group-box.empty {
+  background-color: #FFFFFF;
+  width: 76px;
+  height: 76px;
+}
+
+.group-item-icon {
+  font-size: 2rem;
+  line-height: 1;
+}
+
+/* Dashboard layout (Start Math Exercise is wider than Progress Board) */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+  width: 100%;
+  align-items: start; /* Align top edges of left and right cards */
+  
+  @media (min-width: 768px) {
+    grid-template-columns: 1fr 1.6fr;
+  }
+}
+
+/* Topics list wrapper */
+.topics-list-wrapper {
+  max-height: none;
+  overflow-y: visible;
+  padding-right: 0;
+}
+
+/* Topics grid container (4x6 responsive grid) */
+.topics-grid-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  width: 100%;
+  
+  @media (min-width: 540px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  @media (min-width: 900px) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.topic-tile-btn {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 12px 6px;
+  text-align: center;
+  min-height: 100px;
+  min-width: 0;
+  border-radius: 20px;
+  box-shadow: 0 4px 0 var(--color-dark);
+}
+
+.topic-tile-btn.chunky-btn {
+  justify-content: center;
+  padding-left: 6px;
+}
+
+.topic-tile-btn span {
+  margin-left: 0;
+}
+
+.topic-tile-label {
+  font-size: 1.1rem;
+  margin-top: 8px;
+  line-height: 1.25;
+  font-weight: 600;
+  display: block;
+}
+
+@media (max-width: 640px) {
+  .topic-tile-label {
+    font-size: 0.85rem;
+  }
+  .topic-tile-btn {
+    min-height: 80px;
+    padding: 8px 4px;
+    border-radius: 16px;
+  }
+}
+
+/* Folder Accordion Styles */
+.folder-container {
+  width: 100%;
+}
+
+.folder-header-btn {
+  font-family: var(--font-fun);
+  font-size: 1.15rem;
+  font-weight: bold;
+  background-color: var(--color-light);
+  border: 3px solid var(--color-dark);
+  border-radius: 20px;
+  padding: 14px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 6px 0 var(--color-dark);
+  transition: all 0.15s ease-in-out;
+  cursor: pointer;
+  outline: none;
+}
+
+.folder-header-btn:hover {
+  background-color: #f8fafc;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 0 var(--color-dark);
+}
+
+.folder-header-btn.active {
+  background-color: #f1f5f9;
+  transform: translateY(3px);
+  box-shadow: 0 3px 0 var(--color-dark);
+}
+
+.folder-header-has-active {
+  border-color: var(--color-primary);
+  background-color: #faf5ff;
+}
+
+.folder-header-has-active .folder-header-title {
+  color: var(--color-primary) !important;
+}
+
+@media (max-width: 640px) {
+  .folder-header-btn {
+    font-size: 1rem;
+    padding: 10px 16px;
+    border-radius: 16px;
+  }
+}
+
+/* Mascot Speech Bubble Card */
+.mascot-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+  background: var(--color-cream);
+  border: 4px solid var(--color-dark);
+  border-radius: 28px;
+  padding: 24px;
+  box-shadow: 0 8px 0 var(--color-dark);
+}
+
+.mascot-avatar {
+  font-size: 4.5rem;
+  animation: wiggle-gentle 4s infinite ease-in-out;
+}
+
+.mascot-bubble {
+  flex-grow: 1;
+  position: relative;
+  background: var(--color-light);
+  border: 3px solid var(--color-dark);
+  border-radius: 20px;
+  padding: 16px 20px;
+  font-size: 1.15rem;
+  line-height: 1.5;
+  font-weight: 550;
+  box-shadow: 0 4px 0 rgba(0,0,0,0.05);
+}
+
+/* Option Grid */
+.options-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
+  margin-top: 28px;
+  
+  @media (min-width: 480px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Recent Games list box styling */
+.recent-games-scroll {
+  max-height: 320px;
+  overflow-y: auto;
+  padding-right: 8px;
+}
+
+.recent-games-scroll::-webkit-scrollbar {
+  width: 8px;
+}
+
+.recent-games-scroll::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 4px;
+}
+
+.recent-games-scroll::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+/* Animations */
+.shake {
+  animation: shake 0.5s ease-in-out;
+}
+
+.animate-bounce-slow {
+  animation: bounce-slow 3s infinite ease-in-out;
+}
+
+@keyframes float {
+  0%, 100% { transform: scale(1.1) translateY(-4px); }
+  50% { transform: scale(1.1) translateY(-10px); }
+}
+
+@keyframes bounce-slow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes wiggle-gentle {
+  0%, 100% { transform: rotate(0deg) scale(1); }
+  25% { transform: rotate(5deg) scale(1.05); }
+  75% { transform: rotate(-5deg) scale(1.05); }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-10px); }
+  40%, 80% { transform: translateX(10px); }
+}
+
+/* Bilingual translations */
+.bilingual-en {
+  color: var(--color-dark);
+  white-space: pre-line;
+}
+
+.bilingual-ms {
+  color: #1d4ed8;
+  font-style: italic;
+  font-size: 0.95em;
+  margin-top: 6px;
+  white-space: pre-line;
+}
+
+/* Canvas Confetti */
+.confetti-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 100;
+}
+
+/* =======================================================
+   MOBILE SCROLL PREVENTION & ONE-SCREEN FIT LAYOUT 📱
+   ======================================================= */
+
+.dashboard-tabs {
+  display: none;
+}
+
+.mobile-hide {
+  display: flex !important;
+}
+
+@media (max-width: 640px) {
+  body {
+    font-size: 16px;  /* Make default font size slightly smaller */
+    overflow-y: auto; /* Allow normal scrolling by default */
+  }
+
+  body.practice-active {
+    height: 100vh;
+    height: 100dvh;
+    overflow: hidden; /* Lock browser window scrolling ONLY during practice */
+  }
+
+  #root {
+    padding: 16px 12px;
+    min-height: 100vh;
+  }
+
+  body.practice-active #root {
+    height: 100%;
+    overflow: hidden;
+    padding: 10px;
+  }
+  
+  .app-header {
+    margin-bottom: 10px; /* Moved closer to the nav bar on mobile */
+    padding: 10px 16px;
+    border-width: 3px;
+    box-shadow: 0 4px 0 var(--color-dark);
+    gap: 8px;
+    flex-direction: row !important; /* Keep horizontal on mobile if small elements */
+  }
+
+  h1 { font-size: 2.0rem; }
+  h2 { font-size: 1.5rem; }
+  h3 { font-size: 1.25rem; }
+
+  .chunky-card {
+    padding: 20px; /* More breathing space */
+    border-width: 3px;
+    box-shadow: 0 6px 0 var(--color-dark);
+    border-radius: 24px;
+    margin-bottom: 16px;
+  }
+
+  .chunky-btn {
+    min-height: 48px;
+    font-size: 1.05rem;
+    padding: 10px 18px;
+    border-width: 3px;
+    border-radius: 16px;
+    box-shadow: 0 4px 0 var(--color-dark);
+  }
+
+  .chunky-btn:active {
+    transform: translateY(4px);
+    box-shadow: 0 0px 0 var(--color-dark);
+  }
+
+  /* Compact spacing variables only active during practice to prevent scrolling */
+  .practice-active .mb-8 { margin-bottom: 12px; }
+  .practice-active .mb-6 { margin-bottom: 10px; }
+  .practice-active .mb-4 { margin-bottom: 8px; }
+  .practice-active .mb-3 { margin-bottom: 6px; }
+  .practice-active .mb-2 { margin-bottom: 4px; }
+  .practice-active .mt-4 { margin-top: 10px; }
+  .practice-active .mt-2 { margin-top: 6px; }
+  .practice-active .gap-6 { gap: 12px; }
+  .practice-active .gap-4 { gap: 8px; }
+  .practice-active .gap-3 { gap: 6px; }
+  .practice-active .gap-2 { gap: 4px; }
+  .practice-active .p-6 { padding: 12px; }
+  .practice-active .p-4 { padding: 8px; }
+  .practice-active .p-3 { padding: 6px; }
+
+  /* Topics grid container overrides for mobile */
+  .topics-grid-container {
+    gap: 8px !important;
+  }
+  
+  .topic-tile-btn {
+    padding: 8px 4px !important;
+    min-height: 80px !important;
+    border-radius: 16px !important;
+  }
+
+  .topic-tile-label {
+    font-size: 0.9rem !important; /* Larger font size on mobile too */
+    margin-top: 4px !important;
+    line-height: 1.15 !important;
+    font-weight: 600 !important;
+  }
+
+  /* Avatar badge adjustments */
+  .avatar-badge {
+    width: 70px;
+    height: 70px;
+    font-size: 2.6rem;
+    border-width: 3px;
+    box-shadow: 0 4px 0 var(--color-dark);
+  }
+
+  /* Segmented tab container (integrated controller look) */
+  .dashboard-tabs {
+    display: flex;
+    margin-bottom: 16px;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.05);
+    border: 3px solid var(--color-dark);
+    border-radius: 18px;
+    padding: 4px;
+    box-shadow: inset 0 3px 0 rgba(0, 0, 0, 0.05);
+  }
+  
+  .dashboard-tab-btn {
+    flex: 1;
+    font-family: var(--font-fun);
+    font-weight: 600;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 12px;
+    background: transparent;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: all 0.15s ease-out;
+    color: var(--color-dark);
+  }
+  
+  .dashboard-tab-btn.active {
+    background: var(--color-primary);
+    color: white;
+    border: 3px solid var(--color-dark);
+    box-shadow: 0 4px 0 var(--color-dark);
+    transform: translateY(-2px);
+  }
+
+  .mobile-hide {
+    display: none !important;
+  }
+
+  /* Internal scrolling cards to keep them fit in one screen */
+  /* Disable inner scroll on mobile settings, use standard browser scroll */
+  .settings-container {
+    max-height: none !important;
+    overflow-y: visible !important;
+    padding-bottom: 24px;
+    box-sizing: border-box;
+  }
+
+  .recent-games-scroll {
+    max-height: 160px; /* Compress game history height on mobile */
+  }
+
+  /* Practice Arena spacing optimization */
+  .hud-bar {
+    padding: 8px 12px;
+    margin-bottom: 10px;
+    border-width: 3px;
+    border-radius: 16px;
+    flex-direction: row !important;
+    gap: 6px;
+  }
+
+  .hud-item {
+    font-size: 0.95rem;
+  }
+
+  .progress-container {
+    height: 16px;
+    margin: 8px 0 12px;
+    border-width: 3px;
+  }
+
+  .practice-grid {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    height: calc(100vh - 120px);
+    gap: 8px;
+    overflow: hidden;
+  }
+
+  .practice-question-text-container {
+    min-height: 48px !important;
+    height: auto !important;
+  }
+  
+  .practice-visualizer-container {
+    min-height: 100px !important;
+    height: auto !important;
+    padding: 4px 0;
+  }
+
+  /* Groups mobile overrides */
+  .groups-container {
+    gap: 8px !important;
+    margin: 8px 0 !important;
+  }
+  
+  .group-box {
+    border-radius: 14px !important;
+    padding: 6px 10px !important;
+    min-width: 48px !important;
+    min-height: 48px !important;
+    box-shadow: 0 3px 0 #8B5CF6 !important;
+    border-width: 2.5px !important;
+  }
+
+  .group-box.empty {
+    width: 58px !important;
+    height: 58px !important;
+  }
+
+  .group-item-icon {
+    font-size: 1.4rem !important;
+  }
+
+  .mascot-container {
+    padding: 8px 12px;
+    border-radius: 18px;
+    border-width: 3px;
+    gap: 12px;
+    box-shadow: 0 4px 0 var(--color-dark);
+  }
+
+  .mascot-avatar {
+    font-size: 2.5rem;
+  }
+
+  .mascot-bubble {
+    padding: 6px 12px;
+    font-size: 0.9rem;
+    border-width: 2px;
+    border-radius: 14px;
+  }
+
+  .options-grid {
+    gap: 10px;
+    margin-top: 12px;
+    grid-template-columns: repeat(2, 1fr) !important; /* Force 2 cols on mobile for compact fit */
+  }
+
+  /* Restrict MathVisualizer SVG heights dynamically to fit exactly */
+  .counting-container {
+    padding: 6px;
+    margin: 6px auto;
+  }
+  .counting-icon {
+    width: 38px !important;
+    height: 38px !important;
+  }
+
+  svg[viewBox^="0 0 180 180"] {
+    width: 110px !important;
+    height: 110px !important;
+  }
+
+  svg[viewBox^="0 0 240 44"] {
+    width: 160px !important;
+    height: 30px !important;
+  }
+
+  svg[viewBox^="0 0 140 140"] {
+    width: 90px !important;
+    height: 90px !important;
+  }
+
+  svg[viewBox^="0 0 180 150"] {
+    width: 120px !important;
+    height: 100px !important;
+  }
+
+  svg[viewBox^="0 0 150 150"] {
+    width: 100px !important;
+    height: 100px !important;
+  }
+
+  svg[viewBox^="0 0 280 60"] {
+    width: 200px !important;
+    height: 44px !important;
+  }
+}

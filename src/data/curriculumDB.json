@@ -1,0 +1,3152 @@
+[
+  {
+    "id": 1,
+    "en": "Numbers & Counting",
+    "ms": "Nombor & Pengiraan",
+    "category": "Numbers & Counting",
+    "svg": "counting",
+    "variations": [
+      {
+        "year": "Y1",
+        "logic": "Count items in 1x1 to 1x10 grid",
+        "template": {
+          "questionEn": "How many {itemEn}s {itemEmoji} can you count?",
+          "questionMs": "Berapakah bilangan {itemMs} {itemEmoji} yang boleh anda kira?",
+          "vars": {
+            "count": "randomRange(1, 10)"
+          },
+          "answer": "String(count)",
+          "distractors": "generateChoices(ans, 1)",
+          "visual": {
+            "type": "counting",
+            "params": {
+              "count": "count",
+              "item": "itemEn",
+              "icon": "itemEmoji"
+            }
+          }
+        }
+      },
+      {
+        "year": "Y1",
+        "logic": "Count items in 2x5 grid",
+        "template": {
+          "questionEn": "Count the {itemEn}s {itemEmoji} in the double-row frames:",
+          "questionMs": "Kira {itemMs} {itemEmoji} di dalam bingkai dua baris:",
+          "vars": {
+            "count": "randomRange(10, 20)"
+          },
+          "answer": "String(count)",
+          "distractors": "generateChoices(ans, 2)",
+          "visual": {
+            "type": "counting",
+            "params": {
+              "count": "count",
+              "item": "itemEn",
+              "icon": "itemEmoji"
+            }
+          }
+        }
+      },
+      {
+        "year": "Y1",
+        "logic": "Write word name for numeral",
+        "template": {
+          "questionEn": "What is the word name for the number {num} below?",
+          "questionMs": "Apakah nama perkataan bagi nombor {num} di bawah?",
+          "vars": {
+            "num": "randomRange(1, 10)",
+            "wordEn": "['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'][num - 1]",
+            "wordMs": "['satu', 'dua', 'tiga', 'empat', 'lima', 'enam', 'tujuh', 'lapan', 'sembilan', 'sepuluh'][num - 1]"
+          },
+          "answer": "wordEn + ' / ' + wordMs",
+          "distractors": "scrambleChoices(ans, [ 'three / tiga', 'seven / tujuh', 'five / lima', 'one / satu', 'nine / sembilan', 'four / empat' ])",
+          "visual": {
+            "type": "number-card",
+            "params": {
+              "val": "num"
+            }
+          }
+        }
+      },
+      {
+        "year": "Y2",
+        "logic": "3-Digit Place Value",
+        "templates": [
+          {
+            "questionEn": "What is the place value of {digit} in {num}?",
+            "questionMs": "Apakah nilai tempat bagi {digit} dalam {num}?",
+            "vars": {
+              "hundreds": "choose(100, 200, 300, 400, 500, 600, 700, 800, 900)",
+              "tens": "choose(10, 20, 30, 40, 50, 60, 70, 80, 90)",
+              "ones": "randomRange(1, 9)",
+              "num": "hundreds + tens + ones",
+              "digit": "choose(Math.floor(hundreds/100), Math.floor(tens/10), ones)",
+              "placeEn": "digit === Math.floor(hundreds/100) ? 'hundreds' : (digit === Math.floor(tens/10) ? 'tens' : 'ones')",
+              "placeMs": "digit === Math.floor(hundreds/100) ? 'ratus' : (digit === Math.floor(tens/10) ? 'puluh' : 'sa')"
+            },
+            "answer": "placeEn + ' / ' + placeMs",
+            "distractors": "scrambleChoices(ans, [ 'hundreds / ratus', 'tens / puluh', 'ones / sa' ])",
+            "visual": {
+              "type": "place-value",
+              "params": {
+                "hundreds": "hundreds",
+                "tens": "tens",
+                "ones": "ones"
+              }
+            }
+          },
+          {
+            "questionEn": "What is the digit value of the underlined digit {underlined} in {num}?",
+            "questionMs": "Apakah nilai digit bagi digit yang bergaris {underlined} dalam {num}?",
+            "vars": {
+              "hundreds": "choose(100, 200, 300, 400, 500, 600, 700, 800, 900)",
+              "tens": "choose(10, 20, 30, 40, 50, 60, 70, 80, 90)",
+              "ones": "randomRange(1, 9)",
+              "num": "hundreds + tens + ones",
+              "underlined": "choose(Math.floor(hundreds/100), Math.floor(tens/10), ones)",
+              "val": "underlined === Math.floor(hundreds/100) ? hundreds : (underlined === Math.floor(tens/10) ? tens : ones)"
+            },
+            "answer": "String(val)",
+            "distractors": "scrambleChoices(ans, [ String(hundreds), String(tens), String(ones), '0' ])",
+            "visual": {
+              "type": "none",
+              "params": {}
+            }
+          }
+        ]
+      },
+      {
+        "year": "Y2",
+        "logic": "Number Words & Numerals",
+        "template": {
+          "questionEn": "Write this number in words:\n{num}",
+          "questionMs": "Tulis nombor ini dalam perkataan:\n{num}",
+          "vars": {
+            "num": "choose(120, 245, 308, 450, 515, 672, 703, 899, 930)",
+            "wordsEn": "num === 120 ? 'one hundred and twenty' : (num === 245 ? 'two hundred and forty-five' : (num === 308 ? 'three hundred and eight' : (num === 450 ? 'four hundred and fifty' : (num === 515 ? 'five hundred and fifteen' : (num === 672 ? 'six hundred and seventy-two' : (num === 703 ? 'seven hundred and three' : (num === 899 ? 'eight hundred and ninety-nine' : 'nine hundred and thirty')))))))",
+            "wordsMs": "num === 120 ? 'satu ratus dua puluh' : (num === 245 ? 'dua ratus empat puluh lima' : (num === 308 ? 'tiga ratus lapan' : (num === 450 ? 'empat ratus lima puluh' : (num === 515 ? 'lima ratus lima belas' : (num === 672 ? 'enam ratus tujuh puluh dua' : (num === 703 ? 'tujuh ratus tiga' : (num === 899 ? 'lapan ratus sembilan puluh sembilan' : 'sembilan ratus tiga puluh')))))))"
+          },
+          "answer": "wordsEn + ' / ' + wordsMs",
+          "distractors": "scrambleChoices(ans, [ 'one hundred and twenty / satu ratus dua puluh', 'two hundred and forty-five / dua ratus empat puluh lima', 'three hundred and eight / tiga ratus lapan', 'four hundred and fifty / empat ratus lima puluh', 'five hundred and fifteen / lima ratus lima belas', 'six hundred and seventy-two / enam ratus tujuh puluh dua', 'seven hundred and three / tujuh ratus tiga', 'eight hundred and ninety-nine / lapan ratus sembilan puluh sembilan' ])",
+          "visual": {
+            "type": "none",
+            "params": {}
+          }
+        }
+      },
+      {
+        "year": "Y2",
+        "logic": "Comparing Numbers up to 1000",
+        "template": {
+          "questionEn": "Which number is larger:\n{a} or {b}?",
+          "questionMs": "Nombor manakah yang lebih besar:\n{a} atau {b}?",
+          "vars": {
+            "a": "randomRange(100, 999)",
+            "b": "randomRange(100, 999)",
+            "ans": "a > b ? a : b"
+          },
+          "answer": "String(ans)",
+          "distractors": "scrambleChoices(ans, [ String(a), String(b), String(ans - 10), String(ans + 10) ])",
+          "visual": {
+            "type": "none",
+            "params": {}
+          }
+        }
+      },
+      {
+        "year": "Y3",
+        "logic": "4-Digit Place Value",
+        "templates": [
+          {
+            "questionEn": "What is the place value of {digit} in {num}?",
+            "questionMs": "Apakah nilai tempat bagi {digit} dalam {num}?",
+            "vars": {
+              "thousands": "choose(1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000)",
+              "hundreds": "choose(100, 200, 300, 400, 500, 600, 700, 800, 900)",
+              "tens": "choose(10, 20, 30, 40, 50, 60, 70, 80, 90)",
+              "ones": "randomRange(1, 9)",
+              "num": "thousands + hundreds + tens + ones",
+              "digit": "choose(Math.floor(thousands/1000), Math.floor(hundreds/100), Math.floor(tens/10), ones)",
+              "placeEn": "digit === Math.floor(thousands/1000) ? 'thousands' : (digit === Math.floor(hundreds/100) ? 'hundreds' : (digit === Math.floor(tens/10) ? 'tens' : 'ones'))",
+              "placeMs": "digit === Math.floor(thousands/1000) ? 'ribu' : (digit === Math.floor(hundreds/100) ? 'ratus' : (digit === Math.floor(tens/10) ? 'puluh' : 'sa'))"
+            },
+            "answer": "placeEn + ' / ' + placeMs",
+            "distractors": "scrambleChoices(ans, [ 'thousands / ribu', 'hundreds / ratus', 'tens / puluh', 'ones / sa' ])",
+            "visual": {
+              "type": "place-value",
+              "params": {
+                "thousands": "thousands",
+                "hundreds": "hundreds",
+                "tens": "tens",
+                "ones": "ones"
+              }
+            }
+          },
+          {
+            "questionEn": "What is the digit value of the underlined digit {underlined} in {num}?",
+            "questionMs": "Apakah nilai digit bagi digit yang bergaris {underlined} dalam {num}?",
+            "vars": {
+              "thousands": "choose(1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000)",
+              "hundreds": "choose(100, 200, 300, 400, 500, 600, 700, 800, 900)",
+              "tens": "choose(10, 20, 30, 40, 50, 60, 70, 80, 90)",
+              "ones": "randomRange(1, 9)",
+              "num": "thousands + hundreds + tens + ones",
+              "underlined": "choose(Math.floor(thousands/1000), Math.floor(hundreds/100), Math.floor(tens/10), ones)",
+              "val": "underlined === Math.floor(thousands/1000) ? thousands : (underlined === Math.floor(hundreds/100) ? hundreds : (underlined === Math.floor(tens/10) ? tens : ones))"
+            },
+            "answer": "String(val)",
+            "distractors": "scrambleChoices(ans, [ String(thousands), String(hundreds), String(tens), String(ones), '0' ])",
+            "visual": {
+              "type": "none",
+              "params": {}
+            }
+          }
+        ]
+      },
+      {
+        "year": "Y3",
+        "logic": "Comparing & Ordering up to 10,000",
+        "templates": [
+          {
+            "questionEn": "Which number is larger:\n{a} or {b}?",
+            "questionMs": "Nombor manakah yang lebih besar:\n{a} atau {b}?",
+            "vars": {
+              "a": "randomRange(1000, 9999)",
+              "b": "randomRange(1000, 9999)",
+              "ans": "a > b ? a : b"
+            },
+            "answer": "String(ans)",
+            "distractors": "scrambleChoices(ans, [ String(a), String(b), String(ans - 100), String(ans + 100) ])",
+            "visual": {
+              "type": "none",
+              "params": {}
+            }
+          },
+          {
+            "questionEn": "Which number is smaller:\n{a} or {b}?",
+            "questionMs": "Nombor manakah yang lebih kecil:\n{a} atau {b}?",
+            "vars": {
+              "a": "randomRange(1000, 9999)",
+              "b": "randomRange(1000, 9999)",
+              "ans": "a < b ? a : b"
+            },
+            "answer": "String(ans)",
+            "distractors": "scrambleChoices(ans, [ String(a), String(b), String(ans - 100), String(ans + 100) ])",
+            "visual": {
+              "type": "none",
+              "params": {}
+            }
+          }
+        ]
+      },
+      {
+        "year": "Y4",
+        "logic": "5-Digit Place Value & Digit Values",
+        "templates": [
+          {
+            "questionEn": "What is the place value of {digit} in {num}?",
+            "questionMs": "Apakah nilai tempat bagi {digit} dalam {num}?",
+            "vars": {
+              "tenthousands": "choose(10000, 20000, 30000, 40000, 50000, 60000, 70000, 80000, 90000)",
+              "thousands": "choose(1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000)",
+              "hundreds": "choose(100, 200, 300, 400, 500, 600, 700, 800, 900)",
+              "tens": "choose(10, 20, 30, 40, 50, 60, 70, 80, 90)",
+              "ones": "randomRange(1, 9)",
+              "num": "tenthousands + thousands + hundreds + tens + ones",
+              "digit": "choose(Math.floor(tenthousands/10000), Math.floor(thousands/1000), Math.floor(hundreds/100), Math.floor(tens/10), ones)",
+              "placeEn": "digit === Math.floor(tenthousands/10000) ? 'ten thousands' : (digit === Math.floor(thousands/1000) ? 'thousands' : (digit === Math.floor(hundreds/100) ? 'hundreds' : (digit === Math.floor(tens/10) ? 'tens' : 'ones')))",
+              "placeMs": "digit === Math.floor(tenthousands/10000) ? 'puluh ribu' : (digit === Math.floor(thousands/1000) ? 'ribu' : (digit === Math.floor(hundreds/100) ? 'ratus' : (digit === Math.floor(tens/10) ? 'puluh' : 'sa')))"
+            },
+            "answer": "placeEn + ' / ' + placeMs",
+            "distractors": "scrambleChoices(ans, [ 'ten thousands / puluh ribu', 'thousands / ribu', 'hundreds / ratus', 'tens / puluh', 'ones / sa' ])",
+            "visual": {
+              "type": "none",
+              "params": {}
+            }
+          },
+          {
+            "questionEn": "What is the digit value of the underlined digit {underlined} in {num}?",
+            "questionMs": "Apakah nilai digit bagi digit yang bergaris {underlined} dalam {num}?",
+            "vars": {
+              "tenthousands": "choose(10000, 20000, 30000, 40000, 50000, 60000, 70000, 80000, 90000)",
+              "thousands": "choose(1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000)",
+              "hundreds": "choose(100, 200, 300, 400, 500, 600, 700, 800, 900)",
+              "tens": "choose(10, 20, 30, 40, 50, 60, 70, 80, 90)",
+              "ones": "randomRange(1, 9)",
+              "num": "tenthousands + thousands + hundreds + tens + ones",
+              "underlined": "choose(Math.floor(tenthousands/10000), Math.floor(thousands/1000), Math.floor(hundreds/100), Math.floor(tens/10), ones)",
+              "val": "underlined === Math.floor(tenthousands/10000) ? tenthousands : (underlined === Math.floor(thousands/1000) ? thousands : (underlined === Math.floor(hundreds/100) ? hundreds : (underlined === Math.floor(tens/10) ? tens : ones)))"
+            },
+            "answer": "String(val)",
+            "distractors": "scrambleChoices(ans, [ String(tenthousands), String(thousands), String(hundreds), String(tens), String(ones) ])",
+            "visual": {
+              "type": "none",
+              "params": {}
+            }
+          }
+        ]
+      },
+      {
+        "year": "Y4",
+        "logic": "Rounding & Estimation",
+        "templates": [
+          {
+            "questionEn": "Round {num} to the nearest thousand:",
+            "questionMs": "Bundarkan {num} kepada ribu yang terdekat:",
+            "vars": {
+              "num": "randomRange(10000, 99000)",
+              "ans": "Math.round(num / 1000) * 1000"
+            },
+            "answer": "String(ans)",
+            "distractors": "scrambleChoices(ans, [ String(ans + 1000), String(ans - 1000), String(ans + 10000), String(ans - 10000) ])",
+            "visual": {
+              "type": "none",
+              "params": {}
+            }
+          },
+          {
+            "questionEn": "Round {num} to the nearest ten thousand:",
+            "questionMs": "Bundarkan {num} kepada puluh ribu yang terdekat:",
+            "vars": {
+              "num": "randomRange(10000, 99000)",
+              "ans": "Math.round(num / 10000) * 10000"
+            },
+            "answer": "String(ans)",
+            "distractors": "scrambleChoices(ans, [ String(ans + 10000), String(ans - 10000), String(ans + 1000), String(ans - 1000) ])",
+            "visual": {
+              "type": "none",
+              "params": {}
+            }
+          }
+        ]
+      },
+      {
+        "year": "Y5",
+        "logic": "Numbers up to 1,000,000",
+        "templates": [
+          {
+            "questionEn": "What is the place value of the digit {digit} in {num}?",
+            "questionMs": "Apakah nilai tempat bagi digit {digit} dalam {num}?",
+            "vars": {
+              "hundredthousands": "choose(100000, 200000, 300000, 400000, 500000, 600000, 700000, 800000, 900000)",
+              "tenthousands": "choose(10000, 20000, 30000, 40000, 50000, 60000, 70000, 80000, 90000)",
+              "thousands": "choose(1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000)",
+              "num": "hundredthousands + tenthousands + thousands + 245",
+              "digit": "choose(Math.floor(hundredthousands/100000), Math.floor(tenthousands/10000), Math.floor(thousands/1000))",
+              "placeEn": "digit === Math.floor(hundredthousands/100000) ? 'hundred thousands' : (digit === Math.floor(tenthousands/10000) ? 'ten thousands' : 'thousands')",
+              "placeMs": "digit === Math.floor(hundredthousands/100000) ? 'ratus ribu' : (digit === Math.floor(tenthousands/10000) ? 'puluh ribu' : 'ribu')"
+            },
+            "answer": "placeEn + ' / ' + placeMs",
+            "distractors": "scrambleChoices(ans, [ 'hundred thousands / ratus ribu', 'ten thousands / puluh ribu', 'thousands / ribu', 'hundreds / ratus' ])",
+            "visual": {
+              "type": "none",
+              "params": {}
+            }
+          }
+        ]
+      },
+      {
+        "year": "Y5",
+        "logic": "Prime & Composite Numbers",
+        "templates": [
+          {
+            "questionEn": "Which of the following is a prime number?",
+            "questionMs": "Manakah antara berikut adalah nombor perdana?",
+            "vars": {
+              "ans": "choose(11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47)"
+            },
+            "answer": "String(ans)",
+            "distractors": "scrambleChoices(ans, [ '9', '15', '21', '25', '27', '33', '35', '39', '45', '49' ])",
+            "visual": {
+              "type": "none",
+              "params": {}
+            }
+          }
+        ]
+      },
+      {
+        "year": "Y6",
+        "logic": "Numbers up to 10,000,000",
+        "templates": [
+          {
+            "questionEn": "Convert {frac} million to a whole number:",
+            "questionMs": "Tukarkan {frac} juta kepada nombor bulat:",
+            "vars": {
+              "idx": "choose(0, 1, 2, 3)",
+              "frac": "['1/2', '1/4', '3/4', '1/5'][idx]",
+              "ans": "[500000, 250000, 750000, 200000][idx]"
+            },
+            "answer": "String(ans)",
+            "distractors": "scrambleChoices(ans, [ '50000', '25000', '75000', '20000', '2500000' ])",
+            "visual": {
+              "type": "none",
+              "params": {}
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "en": "Missing Numbers",
+    "ms": "Nombor yang Hilang",
+    "category": "Numbers & Counting",
+    "svg": "sequence",
+    "variations": [
+      {
+        "year": "Y1",
+        "logic": "Simple Sequential Counting (Forward)",
+        "template": {
+          "questionEn": "Find the missing number in this forward sequence:",
+          "questionMs": "Cari nombor yang tertinggal dalam urutan menaik ini:",
+          "vars": {
+            "start": "randomRange(10, 80)",
+            "missingIdx": "randomRange(1, 3)"
+          },
+          "answer": "String(start + missingIdx)",
+          "distractors": "generateChoices(ans, 1)",
+          "visual": {
+            "type": "sequence",
+            "params": {
+              "start": "start",
+              "missing": "missingIdx",
+              "step": 1,
+              "length": 5
+            }
+          }
+        }
+      },
+      {
+        "year": "Y1",
+        "logic": "Backward Counting Sequence",
+        "template": {
+          "questionEn": "Find the missing number in this backward sequence:",
+          "questionMs": "Cari nombor yang tertinggal dalam urutan menurun ini:",
+          "vars": {
+            "start": "randomRange(15, 90)",
+            "missingIdx": "randomRange(1, 3)"
+          },
+          "answer": "String(start - missingIdx)",
+          "distractors": "generateChoices(ans, 1)",
+          "visual": {
+            "type": "sequence",
+            "params": {
+              "start": "start",
+              "missing": "missingIdx",
+              "step": -1,
+              "length": 5
+            }
+          }
+        }
+      },
+      {
+        "year": "Y1",
+        "logic": "Number Bonds (Part-Whole Relationship)",
+        "template": {
+          "questionEn": "Complete the number bond. Find the missing part:",
+          "questionMs": "Lengkapkan kad kombinasi nombor. Cari bahagian yang hilang:",
+          "vars": {
+            "whole": "randomRange(5, 10)",
+            "part1": "randomRange(1, whole - 1)",
+            "part2": "whole - part1",
+            "missing": "choose(1, 2)"
+          },
+          "answer": "String(missing === 1 ? part1 : part2)",
+          "distractors": "generateChoices(ans, 1)",
+          "visual": {
+            "type": "number-bond",
+            "params": {
+              "whole": "whole",
+              "part1": "missing === 1 ? '?' : part1",
+              "part2": "missing === 2 ? '?' : part2"
+            }
+          }
+        }
+      },
+      {
+        "year": "Y1",
+        "logic": "Skip Counting by 2s, 5s, or 10s",
+        "template": {
+          "questionEn": "Skip count to fill in the missing card:",
+          "questionMs": "Kira langkau untuk mengisi kad yang tertinggal:",
+          "vars": {
+            "step": "choose(2, 5, 10)",
+            "start": "step === 2 ? randomRange(2, 12) * 2 : (step === 5 ? randomRange(1, 6) * 5 : randomRange(1, 4) * 10)",
+            "missingIdx": "randomRange(1, 3)"
+          },
+          "answer": "String(start + missingIdx * step)",
+          "distractors": "generateChoices(ans, step)",
+          "visual": {
+            "type": "sequence",
+            "params": {
+              "start": "start",
+              "missing": "missingIdx",
+              "step": "step",
+              "length": 5
+            }
+          }
+        }
+      },
+      {
+        "year": "Y1",
+        "logic": "Missing Addend (a + [?] = c)",
+        "template": {
+          "questionEn": "Solve for the missing number:",
+          "questionMs": "Cari nombor yang tertinggal:",
+          "vars": {
+            "a": "randomRange(1, 9)",
+            "ans": "randomRange(1, 9)",
+            "c": "a + ans"
+          },
+          "answer": "String(ans)",
+          "distractors": "generateChoices(ans, 1)",
+          "visual": {
+            "type": "equation",
+            "params": {
+              "left": "a + ' + ?'",
+              "right": "c"
+            }
+          }
+        }
+      },
+      {
+        "year": "Y1",
+        "logic": "Missing Subtrahend (c - [?] = a)",
+        "template": {
+          "questionEn": "Solve for the missing number:",
+          "questionMs": "Cari nombor yang tertinggal:",
+          "vars": {
+            "c": "randomRange(5, 15)",
+            "ans": "randomRange(1, c - 1)",
+            "a": "c - ans"
+          },
+          "answer": "String(ans)",
+          "distractors": "generateChoices(ans, 1)",
+          "visual": {
+            "type": "equation",
+            "params": {
+              "left": "c + ' - ?'",
+              "right": "a"
+            }
+          }
+        }
+      },
+      {
+        "year": "Y1",
+        "logic": "Missing Minuend ([?] - b = a)",
+        "template": {
+          "questionEn": "Solve for the missing number:",
+          "questionMs": "Cari nombor yang tertinggal:",
+          "vars": {
+            "b": "randomRange(1, 9)",
+            "a": "randomRange(1, 9)",
+            "ans": "a + b"
+          },
+          "answer": "String(ans)",
+          "distractors": "generateChoices(ans, 1)",
+          "visual": {
+            "type": "equation",
+            "params": {
+              "left": "'? - ' + b",
+              "right": "a"
+            }
+          }
+        }
+      },
+      {
+        "year": "Y1",
+        "logic": "Missing Addend ([?] + b = c)",
+        "template": {
+          "questionEn": "Solve for the missing number:",
+          "questionMs": "Cari nombor yang tertinggal:",
+          "vars": {
+            "b": "randomRange(1, 9)",
+            "ans": "randomRange(1, 9)",
+            "c": "ans + b"
+          },
+          "answer": "String(ans)",
+          "distractors": "generateChoices(ans, 1)",
+          "visual": {
+            "type": "equation",
+            "params": {
+              "left": "'? + ' + b",
+              "right": "c"
+            }
+          }
+        }
+      },
+      {
+        "year": "Y1",
+        "logic": "Place Value Missing Numbers",
+        "template": {
+          "questionEn": "Complete the place value chart for {c}:",
+          "questionMs": "Lengkapkan carta nilai tempat untuk {c}:",
+          "vars": {
+            "tens": "choose(10, 20)",
+            "ones": "randomRange(1, 9)",
+            "c": "tens + ones"
+          },
+          "answer": "String(ones)",
+          "distractors": "generateChoices(ans, 1)",
+          "visual": {
+            "type": "place-value",
+            "params": {
+              "num": "c",
+              "tens": "tens",
+              "ones": "'?'"
+            }
+          }
+        }
+      },
+      {
+        "year": "Y1",
+        "logic": "Word-Based / Language Comparison",
+        "template": {
+          "questionEn": "What number is {diff} more than {a}?",
+          "questionMs": "Apakah nombor yang {diff} lebih daripada {a}?",
+          "vars": {
+            "a": "randomRange(3, 12)",
+            "diff": "choose(1, 2, 3)",
+            "ans": "a + diff"
+          },
+          "answer": "String(ans)",
+          "distractors": "generateChoices(ans, 1)",
+          "visual": {
+            "type": "none",
+            "params": {}
+          }
+        }
+      },
+      {
+        "year": "Y1",
+        "logic": "Balance Equations (Two-Step Evaluation)",
+        "template": {
+          "questionEn": "Find the missing number to balance the equation: {a} + {b} = {c} + [ ___ ]",
+          "questionMs": "Cari nombor yang tertinggal untuk mengimbangi persamaan: {a} + {b} = {c} + [ ___ ]",
+          "vars": {
+            "a": "randomRange(1, 8)",
+            "b": "randomRange(1, 8)",
+            "sum": "a + b",
+            "c": "randomRange(1, sum - 1)",
+            "ans": "sum - c"
+          },
+          "answer": "String(ans)",
+          "distractors": "generateChoices(ans, 1)",
+          "visual": {
+            "type": "equation",
+            "params": {
+              "left": "a + ' + ' + b",
+              "right": "c + ' + ?'"
+            }
+          }
+        }
+      },
+      {
+        "year": "Y2",
+        "logic": "Skip Counting (2s, 5s, 10s, 100s)",
+        "template": {
+          "questionEn": "Skip count to fill in the missing card:",
+          "questionMs": "Kira langkau untuk mengisi kad yang tertinggal:",
+          "vars": {
+            "start": "randomRange(100, 500)",
+            "step": "choose(2, 5, 10, 100)",
+            "missing": "randomRange(0, 4)",
+            "ans": "start + missing * step"
+          },
+          "answer": "String(ans)",
+          "distractors": "generateChoices(ans, step)",
+          "visual": {
+            "type": "sequence",
+            "params": {
+              "start": "start",
+              "step": "step",
+              "length": "5",
+              "missing": "missing"
+            }
+          }
+        }
+      },
+      {
+        "year": "Y2",
+        "logic": "Number Line to 1000",
+        "template": {
+          "questionEn": "What number is represented by the question mark on the number line?",
+          "questionMs": "Apakah nombor yang diwakili oleh tanda tanya pada garis nombor?",
+          "vars": {
+            "start": "randomRange(100, 800)",
+            "step": "choose(10, 20, 50)",
+            "missing": "randomRange(1, 4)",
+            "ans": "start + missing * step"
+          },
+          "answer": "String(ans)",
+          "distractors": "generateChoices(ans, step)",
+          "visual": {
+            "type": "sequence",
+            "params": {
+              "start": "start",
+              "step": "step",
+              "length": "6",
+              "missing": "missing"
+            }
+          }
+        }
+      },
+      {
+        "year": "Y3",
+        "logic": "Skip Counting (3s, 4s, 6s, 7s, 8s, 9s, 50s, 1000s)",
+        "template": {
+          "questionEn": "Skip count to fill in the missing card:",
+          "questionMs": "Kira langkau untuk mengisi kad yang tertinggal:",
+          "vars": {
+            "start": "randomRange(1000, 4000)",
+            "step": "choose(3, 4, 6, 7, 8, 9, 50, 1000)",
+            "missing": "randomRange(0, 4)",
+            "ans": "start + missing * step"
+          },
+          "answer": "String(ans)",
+          "distractors": "generateChoices(ans, step)",
+          "visual": {
+            "type": "sequence",
+            "params": {
+              "start": "start",
+              "step": "step",
+              "length": "5",
+              "missing": "missing"
+            }
+          }
+        }
+      },
+      {
+        "year": "Y3",
+        "logic": "Number Line to 10,000",
+        "template": {
+          "questionEn": "What number is represented by the question mark on the number line?",
+          "questionMs": "Apakah nombor yang diwakili oleh tanda tanya pada garis nombor?",
+          "vars": {
+            "start": "randomRange(1000, 8000)",
+            "step": "choose(100, 200, 500)",
+            "missing": "randomRange(1, 4)",
+            "ans": "start + missing * step"
+          },
+          "answer": "String(ans)",
+          "distractors": "generateChoices(ans, step)",
+          "visual": {
+            "type": "sequence",
+            "params": {
+              "start": "start",
+              "step": "step",
+              "length": "6",
+              "missing": "missing"
+            }
+          }
+        }
+      },
+      {
+        "year": "Y4",
+        "logic": "Skip Counting up to 100,000",
+        "templates": [
+          {
+            "questionEn": "Find the missing number in the sequence:",
+            "questionMs": "Cari nombor yang tertinggal dalam jujukan:",
+            "vars": {
+              "start": "randomRange(10000, 50000)",
+              "step": "choose(100, 500, 1000, 10000)",
+              "missing": "randomRange(1, 4)",
+              "ans": "start + missing * step"
+            },
+            "answer": "String(ans)",
+            "distractors": "generateChoices(ans, step)",
+            "visual": {
+              "type": "sequence",
+              "params": {
+                "start": "start",
+                "step": "step",
+                "length": "6",
+                "missing": "missing"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "year": "Y5",
+        "logic": "Arithmetic & Geometric sequences",
+        "templates": [
+          {
+            "questionEn": "Find the missing number in this geometric sequence:",
+            "questionMs": "Cari nombor yang tertinggal dalam jujukan geometri ini:",
+            "vars": {
+              "start": "choose(5, 10, 20, 50)",
+              "multiplier": "choose(2, 3, 5)",
+              "missing": "randomRange(1, 3)",
+              "ans": "start * Math.pow(multiplier, missing)"
+            },
+            "answer": "String(ans)",
+            "distractors": "scrambleChoices(ans, [ String(ans + 10), String(ans - 10), String(start * Math.pow(multiplier, missing + 1)), String(start * Math.pow(multiplier, missing - 1)) ])",
+            "visual": {
+              "type": "none",
+              "params": {}
+            }
+          }
+        ]
+      },
+      {
+        "year": "Y6",
+        "logic": "Advanced Series & Progression",
+        "templates": [
+          {
+            "questionEn": "Complete the missing pattern in this progression:",
+            "questionMs": "Lengkapkan pola yang tertinggal dalam jujukan ini:",
+            "vars": {
+              "start": "choose(100, 200, 500)",
+              "missing": "randomRange(1, 3)",
+              "ans": "start * Math.pow(1.5, missing)"
+            },
+            "answer": "String(ans)",
+            "distractors": "scrambleChoices(ans, [ String(ans + 50), String(ans - 50), String(ans * 2) ])",
+            "visual": {
+              "type": "none",
+              "params": {}
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "en": "Addition & Subtraction",
+    "ms": "Tambah & Tolak",
+    "category": "Operations",
+    "svg": "equation",
+    "variations": [
+      {
+        "year": "Y1",
+        "logic": "Basic single-digit addition: a + b (Sum <= 10)",
+        "template": {
+          "questionEn": "Calculate: {a} + {b}",
+          "questionMs": "Kira: {a} + {b}",
+          "vars": {
+            "a": "randomRange(1, 8)",
+            "b": "randomRange(1, 10 - a)",
+            "ans": "a + b"
+          },
+          "answer": "String(ans)",
+          "distractors": "generateChoices(ans, 1)",
+          "visual": {
+            "type": "equation",
+            "params": {
+              "left": "a + ' + ' + b",
+              "right": "'?'"
+            }
+          }
+        }
+      },
+      {
+        "year": "Y1",
+        "logic": "Addition with carrying under 20",
+        "template": {
+          "questionEn": "Solve: {a} + {b}",
+          "questionMs": "Selesaikan: {a} + {b}",
+          "vars": {
+            "a": "randomRange(6, 9)",
+            "b": "randomRange(6, 9)",
+            "ans": "a + b"
+          },
+          "answer": "String(ans)",
+          "distractors": "generateChoices(ans, 1)",
+          "visual": {
+            "type": "equation",
+            "params": {
+              "left": "a + ' + ' + b",
+              "right": "'?'"
+            }
+          }
+        }
+      },
+      {
+        "year": "Y1",
+        "logic": "Subtraction within 10: a - b",
+        "template": {
+          "questionEn": "Calculate: {c} - {b}",
+          "questionMs": "Kira: {c} - {b}",
+          "vars": {
+            "c": "randomRange(5, 10)",
+            "b": "randomRange(1, c - 1)",
+            "ans": "c - b"
+          },
+          "answer": "String(ans)",
+          "distractors": "generateChoices(ans, 1)",
+          "visual": {
+            "type": "equation",
+            "params": {
+              "left": "c + ' - ' + b",
+              "right": "'?'"
+            }
+          }
+        }
+      },
+      {
+        "year": "Y1",
+        "logic": "Subtraction within 20 with borrowing",
+        "template": {
+          "questionEn": "Calculate: {c} - {b}",
+          "questionMs": "Kira: {c} - {b}",
+          "vars": {
+            "c": "randomRange(11, 18)",
+            "b": "randomRange(c - 9, 9)",
+            "ans": "c - b"
+          },
+          "answer": "String(ans)",
+          "distractors": "generateChoices(ans, 1)",
+          "visual": {
+            "type": "equation",
+            "params": {
+              "left": "c + ' - ' + b",
+              "right": "'?'"
+            }
+          }
+        }
+      },
+      {
+        "year": "Y2",
+        "logic": "3-Digit Addition with Regrouping",
+        "templates": [
+          {
+            "questionEn": "Calculate in vertical form:\n{a} + {b}",
+            "questionMs": "Kira dalam bentuk lazim:\n{a} + {b}",
+            "vars": {
+              "a": "randomRange(100, 499)",
+              "b": "randomRange(100, 499)",
+              "ans": "a + b"
+            },
+            "answer": "String(ans)",
+            "distractors": "generateChoices(ans, 10)",
+            "visual": {
+              "type": "vertical-math",
+              "params": {
+                "num1": "a",
+                "num2": "b",
+                "op": "'+'"
+              }
+            }
+          },
+          {
+            "questionEn": "{name1} has {a} stamps. {name2} has {b} stamps. How many stamps do they have altogether?",
+            "questionMs": "{name1} ada {a} setem. {name2} ada {b} setem. Berapakah bilangan setem yang mereka ada kesemuanya?",
+            "vars": {
+              "a": "randomRange(100, 400)",
+              "b": "randomRange(100, 400)",
+              "name1": "choose('Ali', 'Siti', 'Muthu', 'Chong')",
+              "name2": "choose('Abu', 'Aminah', 'Raju', 'Mei')",
+              "ans": "a + b"
+            },
+            "answer": "String(ans)",
+            "distractors": "generateChoices(ans, 10)",
+            "visual": {
+              "type": "none",
+              "params": {}
+            }
+          },
+          {
+            "questionEn": "What number is {b} more than {a}?",
+            "questionMs": "Nombor apakah yang {b} lebih daripada {a}?",
+            "vars": {
+              "a": "randomRange(100, 500)",
+              "b": "randomRange(50, 200)",
+              "ans": "a + b"
+            },
+            "answer": "String(ans)",
+            "distractors": "generateChoices(ans, 10)",
+            "visual": {
+              "type": "none",
+              "params": {}
+            }
+          }
+        ]
+      },
+      {
+        "year": "Y2",
+        "logic": "3-Digit Subtraction with Borrowing",
+        "templates": [
+          {
+            "questionEn": "Calculate in vertical form:\n{a} - {b}",
+            "questionMs": "Kira dalam bentuk lazim:\n{a} - {b}",
+            "vars": {
+              "a": "randomRange(500, 999)",
+              "b": "randomRange(100, 499)",
+              "ans": "a - b"
+            },
+            "answer": "String(ans)",
+            "distractors": "generateChoices(ans, 10)",
+            "visual": {
+              "type": "vertical-math",
+              "params": {
+                "num1": "a",
+                "num2": "b",
+                "op": "'-'"
+              }
+            }
+          },
+          {
+            "questionEn": "{name1} had {a} paperclips. He used {b} paperclips. How many paperclips does he have left?",
+            "questionMs": "{name1} ada {a} klip kertas. Dia menggunakan {b} klip kertas. Berapakah klip kertas yang dia ada baki?",
+            "vars": {
+              "a": "randomRange(300, 900)",
+              "b": "randomRange(100, 200)",
+              "name1": "choose('Ali', 'Siti', 'Muthu', 'Chong')",
+              "ans": "a - b"
+            },
+            "answer": "String(ans)",
+            "distractors": "generateChoices(ans, 10)",
+            "visual": {
+              "type": "none",
+              "params": {}
+            }
+          },
+          {
+            "questionEn": "{name1} has {a} beads. {name2} has {b} beads. How many more beads does {name1} have than {name2}?",
+            "questionMs": "{name1} ada {a} manik. {name2} ada {b} manik. Berapakah lebihnya manik {name1} berbanding {name2}?",
+            "vars": {
+              "a": "randomRange(400, 800)",
+              "b": "randomRange(100, 300)",
+              "name1": "choose('Ali', 'Siti', 'Muthu', 'Chong')",
+              "name2": "choose('Abu', 'Aminah', 'Raju', 'Mei')",
+              "ans": "a - b"
+            },
+            "answer": "String(ans)",
+            "distractors": "generateChoices(ans, 10)",
+            "visual": {
+              "type": "none",
+              "params": {}
+            }
+          }
+        ]
+      },
+      {
+        "year": "Y2",
+        "logic": "Addition of Three 2-Digit Numbers",
+        "template": {
+          "questionEn": "Calculate in vertical form:\n{a} + {b} + {c}",
+          "questionMs": "Kira dalam bentuk lazim:\n{a} + {b} + {c}",
+          "vars": {
+            "a": "randomRange(10, 40)",
+            "b": "randomRange(10, 40)",
+            "c": "randomRange(10, 40)",
+            "ans": "a + b + c"
+          },
+          "answer": "String(ans)",
+          "distractors": "generateChoices(ans, 5)",
+          "visual": {
+            "type": "equation",
+            "params": {
+              "left": "a + ' + ' + b + ' + ' + c",
+              "right": "'?'"
+            }
+          }
+        }
+      },
+      {
+        "year": "Y3",
+        "logic": "4-Digit Addition with Regrouping",
+        "templates": [
+          {
+            "questionEn": "Calculate in vertical form:\n{a} + {b}",
+            "questionMs": "Kira dalam bentuk lazim:\n{a} + {b}",
+            "vars": {
+              "a": "randomRange(1000, 4999)",
+              "b": "randomRange(1000, 4999)",
+              "ans": "a + b"
+            },
+            "answer": "String(ans)",
+            "distractors": "generateChoices(ans, 100)",
+            "visual": {
+              "type": "vertical-math",
+              "params": {
+                "num1": "a",
+                "num2": "b",
+                "op": "'+'"
+              }
+            }
+          },
+          {
+            "questionEn": "{name1} has {a} stickers. {name2} has {b} stickers. How many stickers do they have altogether?",
+            "questionMs": "{name1} ada {a} pelekat. {name2} ada {b} pelekat. Berapakah bilangan pelekat yang mereka ada kesemuanya?",
+            "vars": {
+              "a": "randomRange(1000, 4000)",
+              "b": "randomRange(1000, 4000)",
+              "name1": "choose('Ali', 'Siti', 'Muthu', 'Chong')",
+              "name2": "choose('Abu', 'Aminah', 'Raju', 'Mei')",
+              "ans": "a + b"
+            },
+            "answer": "String(ans)",
+            "distractors": "generateChoices(ans, 100)",
+            "visual": {
+              "type": "none",
+              "params": {}
+            }
+          }
+        ]
+      },
+      {
+        "year": "Y3",
+        "logic": "4-Digit Subtraction with Borrowing",
+        "templates": [
+          {
+            "questionEn": "Calculate in vertical form:\n{a} - {b}",
+            "questionMs": "Kira dalam bentuk lazim:\n{a} - {b}",
+            "vars": {
+              "a": "randomRange(5000, 9999)",
+              "b": "randomRange(1000, 4999)",
+              "ans": "a - b"
+            },
+            "answer": "String(ans)",
+            "distractors": "generateChoices(ans, 100)",
+            "visual": {
+              "type": "vertical-math",
+              "params": {
+                "num1": "a",
+                "num2": "b",
+                "op": "'-'"
+              }
+            }
+          },
+          {
+            "questionEn": "{name1} had RM{a}. She spent RM{b} to buy a tablet. How much money does she have left?",
+            "questionMs": "{name1} ada RM{a}. Dia membelanjakan RM{b} untuk membeli sebuah tablet. Berapakah baki wang yang dia ada?",
+            "vars": {
+              "a": "randomRange(1000, 3000)",
+              "b": "randomRange(500, 950)",
+              "name1": "choose('Siti', 'Aminah', 'Raju', 'Mei')",
+              "ans": "a - b"
+            },
+            "answer": "String(ans)",
+            "distractors": "generateChoices(ans, 50)",
+            "visual": {
+              "type": "none",
+              "params": {}
+            }
+          }
+        ]
+      },
+      {
+        "year": "Y4",
+        "logic": "5-Digit Addition & Subtraction",
+        "templates": [
+          {
+            "questionEn": "Calculate in vertical form:\n{a} + {b}",
+            "questionMs": "Kira dalam bentuk lazim:\n{a} + {b}",
+            "vars": {
+              "a": "randomRange(10000, 49999)",
+              "b": "randomRange(10000, 49999)",
+              "ans": "a + b"
+            },
+            "answer": "String(ans)",
+            "distractors": "generateChoices(ans, 100)",
+            "visual": {
+              "type": "vertical-math",
+              "params": {
+                "num1": "a",
+                "num2": "b",
+                "op": "'+'"
+              }
+            }
+          },
+          {
+            "questionEn": "Calculate in vertical form:\n{a} - {b}",
+            "questionMs": "Kira dalam bentuk lazim:\n{a} - {b}",
+            "vars": {
+              "a": "randomRange(50000, 99999)",
+              "b": "randomRange(10000, 49999)",
+              "ans": "a - b"
+            },
+            "answer": "String(ans)",
+            "distractors": "generateChoices(ans, 100)",
+            "visual": {
+              "type": "vertical-math",
+              "params": {
+                "num1": "a",
+                "num2": "b",
+                "op": "'-'"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "year": "Y5",
+        "logic": "Mixed Operations (+ and -)",
+        "templates": [
+          {
+            "questionEn": "Calculate:\n{a} + {b} - {c}",
+            "questionMs": "Kira:\n{a} + {b} - {c}",
+            "vars": {
+              "a": "randomRange(100000, 300000)",
+              "b": "randomRange(50000, 150000)",
+              "c": "randomRange(80000, 180000)",
+              "ans": "a + b - c"
+            },
+            "answer": "String(ans)",
+            "distractors": "generateChoices(ans, 1000)",
+            "visual": {
+              "type": "none",
+              "params": {}
+            }
+          }
+        ]
+      },
+      {
+        "year": "Y6",
+        "logic": "Order of Operations (BODMAS/PEMDAS)",
+        "templates": [
+          {
+            "questionEn": "Calculate:\n{a} + ({b} × {c}) - {d}",
+            "questionMs": "Kira:\n{a} + ({b} × {c}) - {d}",
+            "vars": {
+              "a": "randomRange(10, 50)",
+              "b": "randomRange(2, 6)",
+              "c": "randomRange(3, 8)",
+              "d": "randomRange(5, 15)",
+              "ans": "a + (b * c) - d"
+            },
+            "answer": "String(ans)",
+            "distractors": "scrambleChoices(ans, [ String((a + b) * c - d), String(a + b * (c - d)), String(ans + 10) ])",
+            "visual": {
+              "type": "none",
+              "params": {}
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "en": "Multiplication & Division",
+    "ms": "Darab & Bahagi",
+    "category": "Operations",
+    "svg": "groups",
+    "variations": [
+      {
+        "year": "Y1",
+        "logic": "Repeated addition array matching",
+        "template": {
+          "questionEn": "How many items are there in {groups} groups of {size}?",
+          "questionMs": "Berapakah jumlah barangan dalam {groups} kumpulan {size}?",
+          "vars": {
+            "groups": "randomRange(2, 5)",
+            "size": "randomRange(2, 4)",
+            "total": "groups * size"
+          },
+          "answer": "String(total)",
+          "distractors": "generateChoices(ans, size)",
+          "visual": {
+            "type": "groups",
+            "params": {
+              "groups": "groups",
+              "size": "size",
+              "icon": "itemEmoji"
+            }
+          }
+        }
+      },
+      {
+        "year": "Y1",
+        "logic": "Sharing equally",
+        "template": {
+          "questionEn": "Share {total} {itemEn}s {itemEmoji} equally into {slots} boxes. How many in each box?",
+          "questionMs": "Kongsikan {total} {itemMs} {itemEmoji} secara sama rata ke dalam {slots} kotak. Berapakah di dalam setiap kotak?",
+          "vars": {
+            "size": "randomRange(2, 5)",
+            "slots": "choose(2, 3)",
+            "total": "size * slots"
+          },
+          "answer": "String(size)",
+          "distractors": "generateChoices(ans, 1)",
+          "visual": {
+            "type": "sharing",
+            "params": {
+              "total": "total",
+              "groups": "slots",
+              "icon": "itemEmoji"
+            }
+          }
+        }
+      },
+      {
+        "year": "Y2",
+        "logic": "Multiplication Facts",
+        "templates": [
+          {
+            "questionEn": "Calculate in vertical form:\n{factor1} × {factor2}",
+            "questionMs": "Kira dalam bentuk lazim:\n{factor1} × {factor2}",
+            "vars": {
+              "factor1": "choose(2, 3, 4, 5, 10)",
+              "factor2": "randomRange(1, 9)",
+              "ans": "factor1 * factor2"
+            },
+            "answer": "String(ans)",
+            "distractors": "generateChoices(ans, factor1)",
+            "visual": {
+              "type": "vertical-math",
+              "params": {
+                "num1": "factor1",
+                "num2": "factor2",
+                "op": "'*'"
+              }
+            }
+          },
+          {
+            "questionEn": "There are {factor1} plates. Each plate has {factor2} cakes {itemEmoji}. How many cakes are there altogether?",
+            "questionMs": "Terdapat {factor1} pinggan. Setiap pinggan mempunyai {factor2} biji kek {itemEmoji}. Berapakah bilangan kek kesemuanya?",
+            "vars": {
+              "factor1": "choose(2, 3, 4, 5)",
+              "factor2": "randomRange(2, 6)",
+              "ans": "factor1 * factor2"
+            },
+            "answer": "String(ans)",
+            "distractors": "generateChoices(ans, factor1)",
+            "visual": {
+              "type": "groups",
+              "params": {
+                "groups": "factor1",
+                "size": "factor2",
+                "icon": "itemEmoji"
+              }
+            }
+          },
+          {
+            "questionEn": "What is {factor1} groups of {factor2}?",
+            "questionMs": "Apakah {factor1} kumpulan {factor2}?",
+            "vars": {
+              "factor1": "choose(2, 3, 4, 5, 10)",
+              "factor2": "randomRange(2, 8)",
+              "ans": "factor1 * factor2"
+            },
+            "answer": "String(ans)",
+            "distractors": "generateChoices(ans, factor1)",
+            "visual": {
+              "type": "none",
+              "params": {}
+            }
+          }
+        ]
+      },
+      {
+        "year": "Y2",
+        "logic": "Division Facts",
+        "templates": [
+          {
+            "questionEn": "Share {total} {itemEn}s {itemEmoji} equally into {slots} boxes. How many in each box?",
+            "questionMs": "Kongsikan {total} {itemMs} {itemEmoji} secara sama rata ke dalam {slots} kotak. Berapakah di dalam setiap kotak?",
+            "vars": {
+              "size": "randomRange(2, 9)",
+              "slots": "choose(2, 3, 4, 5, 10)",
+              "total": "size * slots"
+            },
+            "answer": "String(size)",
+            "distractors": "generateChoices(ans, 1)",
+            "visual": {
+              "type": "sharing",
+              "params": {
+                "total": "total",
+                "groups": "slots",
+                "icon": "itemEmoji"
+              }
+            }
+          },
+          {
+            "questionEn": "Calculate in vertical form:\n{total} ÷ {slots}",
+            "questionMs": "Kira dalam bentuk lazim:\n{total} ÷ {slots}",
+            "vars": {
+              "size": "randomRange(2, 9)",
+              "slots": "choose(2, 3, 4, 5, 10)",
+              "total": "size * slots"
+            },
+            "answer": "String(size)",
+            "distractors": "generateChoices(ans, 1)",
+            "visual": {
+              "type": "vertical-math",
+              "params": {
+                "num1": "total",
+                "num2": "slots",
+                "op": "'/'"
+              }
+            }
+          },
+          {
+            "questionEn": "{name1} wants to pack {total} cookies {itemEmoji} into bags of {size}. How many bags does {name1} need?",
+            "questionMs": "{name1} ingin membungkus {total} biskut {itemEmoji} ke dalam beg berisi {size} biji setiap satu. Berapakah beg yang {name1} perlukan?",
+            "vars": {
+              "size": "choose(2, 3, 4, 5)",
+              "slots": "randomRange(2, 8)",
+              "total": "size * slots",
+              "name1": "choose('Ali', 'Siti', 'Muthu', 'Chong')"
+            },
+            "answer": "String(slots)",
+            "distractors": "generateChoices(ans, 1)",
+            "visual": {
+              "type": "sharing",
+              "params": {
+                "total": "total",
+                "groups": "slots",
+                "icon": "itemEmoji"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "year": "Y3",
+        "logic": "Multiplication Tables (6, 7, 8, 9)",
+        "templates": [
+          {
+            "questionEn": "Calculate in vertical form:\n{factor1} × {factor2}",
+            "questionMs": "Kira dalam bentuk lazim:\n{factor1} × {factor2}",
+            "vars": {
+              "factor1": "choose(6, 7, 8, 9)",
+              "factor2": "randomRange(2, 9)",
+              "ans": "factor1 * factor2"
+            },
+            "answer": "String(ans)",
+            "distractors": "generateChoices(ans, factor1)",
+            "visual": {
+              "type": "vertical-math",
+              "params": {
+                "num1": "factor1",
+                "num2": "factor2",
+                "op": "'*'"
+              }
+            }
+          },
+          {
+            "questionEn": "What is {factor1} groups of {factor2}?",
+            "questionMs": "Apakah {factor1} kumpulan {factor2}?",
+            "vars": {
+              "factor1": "choose(6, 7, 8, 9)",
+              "factor2": "randomRange(2, 9)",
+              "ans": "factor1 * factor2"
+            },
+            "answer": "String(ans)",
+            "distractors": "generateChoices(ans, factor1)",
+            "visual": {
+              "type": "none",
+              "params": {}
+            }
+          }
+        ]
+      },
+      {
+        "year": "Y3",
+        "logic": "Multiplying 2 or 3-digit by 1-digit",
+        "template": {
+          "questionEn": "Calculate in vertical form:\n{a} × {b}",
+          "questionMs": "Kira dalam bentuk lazim:\n{a} × {b}",
+          "vars": {
+            "a": "randomRange(50, 250)",
+            "b": "choose(3, 4, 5)",
+            "ans": "a * b"
+          },
+          "answer": "String(ans)",
+          "distractors": "generateChoices(ans, b)",
+          "visual": {
+            "type": "vertical-math",
+            "params": {
+              "num1": "a",
+              "num2": "b",
+              "op": "'*'"
+            }
+          }
+        }
+      },
+      {
+        "year": "Y3",
+        "logic": "Dividing 2 or 3-digit by 1-digit",
+        "templates": [
+          {
+            "questionEn": "Share {total} marbles {itemEmoji} equally into {slots} boxes. How many marbles are in each box?",
+            "questionMs": "Kongsikan {total} guli {itemEmoji} secara sama rata ke dalam {slots} buah kotak. Berapakah biji guli di dalam setiap kotak?",
+            "vars": {
+              "size": "randomRange(20, 80)",
+              "slots": "choose(3, 4, 5, 6)",
+              "total": "size * slots"
+            },
+            "answer": "String(size)",
+            "distractors": "generateChoices(ans, 1)",
+            "visual": {
+              "type": "none",
+              "params": {}
+            }
+          },
+          {
+            "questionEn": "Calculate in vertical form:\n{total} ÷ {slots}",
+            "questionMs": "Kira dalam bentuk lazim:\n{total} ÷ {slots}",
+            "vars": {
+              "size": "randomRange(20, 80)",
+              "slots": "choose(3, 4, 5, 6)",
+              "total": "size * slots"
+            },
+            "answer": "String(size)",
+            "distractors": "generateChoices(ans, 1)",
+            "visual": {
+              "type": "vertical-math",
+              "params": {
+                "num1": "total",
+                "num2": "slots",
+                "op": "'/'"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "year": "Y4",
+        "logic": "Multiplying 3/4-digit by 2-digit",
+        "templates": [
+          {
+            "questionEn": "Calculate in vertical form:\n{a} × {b}",
+            "questionMs": "Kira dalam bentuk lazim:\n{a} × {b}",
+            "vars": {
+              "a": "randomRange(100, 2000)",
+              "b": "randomRange(11, 25)",
+              "ans": "a * b"
+            },
+            "answer": "String(ans)",
+            "distractors": "generateChoices(ans, b)",
+            "visual": {
+              "type": "vertical-math",
+              "params": {
+                "num1": "a",
+                "num2": "b",
+                "op": "'*'"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "year": "Y4",
+        "logic": "Dividing 4/5-digit by 2-digit",
+        "templates": [
+          {
+            "questionEn": "Calculate in vertical form:\n{total} ÷ {slots}",
+            "questionMs": "Kira dalam bentuk lazim:\n{total} ÷ {slots}",
+            "vars": {
+              "size": "randomRange(100, 1000)",
+              "slots": "choose(10, 12, 15, 20)",
+              "total": "size * slots"
+            },
+            "answer": "String(size)",
+            "distractors": "generateChoices(ans, 5)",
+            "visual": {
+              "type": "vertical-math",
+              "params": {
+                "num1": "total",
+                "num2": "slots",
+                "op": "'/'"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "year": "Y5",
+        "logic": "Mixed Operations (× and ÷)",
+        "templates": [
+          {
+            "questionEn": "Calculate:\n{a} × {b} ÷ {c}",
+            "questionMs": "Kira:\n{a} × {b} ÷ {c}",
+            "vars": {
+              "size": "randomRange(20, 100)",
+              "c": "choose(4, 5, 8, 10)",
+              "prod": "size * c",
+              "b": "choose(2, 3, 4)",
+              "a": "prod / b",
+              "ans": "size"
+            },
+            "answer": "String(ans)",
+            "distractors": "generateChoices(ans, 5)",
+            "visual": {
+              "type": "none",
+              "params": {}
+            }
+          }
+        ]
+      },
+      {
+        "year": "Y6",
+        "logic": "Decimal Operations",
+        "templates": [
+          {
+            "questionEn": "Calculate in vertical form:\n{a} × {b}",
+            "questionMs": "Kira dalam bentuk lazim:\n{a} × {b}",
+            "vars": {
+              "val1": "randomRange(11, 49)",
+              "val2": "randomRange(2, 8)",
+              "a": "val1 / 10",
+              "b": "val2 / 10",
+              "ansVal": "(val1 * val2) / 100",
+              "ans": "String(ansVal)"
+            },
+            "answer": "ans",
+            "distractors": "scrambleChoices(ans, [ String(ansVal * 10), String(ansVal / 10), String(ansVal + 0.1) ])",
+            "visual": {
+              "type": "vertical-math",
+              "params": {
+                "num1": "a",
+                "num2": "b",
+                "op": "'*'"
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "en": "Fractions",
+    "ms": "Pecahan",
+    "category": "Fractions & Ratios",
+    "svg": "pie-chart",
+    "variations": [
+      {
+        "year": "Y1",
+        "logic": "Half & Quarter Shapes",
+        "template": {
+          "questionEn": "What fraction of the {shape} is shaded?",
+          "questionMs": "Apakah pecahan bagi bahagian {shape} yang berwarna?",
+          "vars": {
+            "shape": "choose('circle', 'square', 'rectangle')",
+            "parts": "choose(2, 4)",
+            "labelEn": "parts === 2 ? 'half' : 'quarter'",
+            "labelMs": "parts === 2 ? 'setengah' : 'suku'"
+          },
+          "answer": "labelEn + ' / ' + labelMs",
+          "distractors": "scrambleChoices(ans, [ 'half / setengah', 'quarter / suku', 'third / pertiga', 'whole / penuh' ])",
+          "visual": {
+            "type": "fraction-shape",
+            "params": {
+              "shape": "shape",
+              "parts": "parts",
+              "shaded": "1"
+            }
+          }
+        }
+      },
+      {
+        "year": "Y1",
+        "logic": "Text Fractions matching",
+        "template": {
+          "questionEn": "Which numerical fraction represents a {name}?",
+          "questionMs": "Manakah pecahan nombor yang mewakili {name === 'half' ? 'separuh' : 'suku'}?",
+          "vars": {
+            "name": "choose('half', 'quarter')",
+            "fraction": "name === 'half' ? '1/2' : '1/4'"
+          },
+          "answer": "fraction",
+          "distractors": "scrambleChoices(ans, [ '1/2', '1/4', '1/3', '3/4' ])",
+          "visual": {
+            "type": "none",
+            "params": {}
+          }
+        }
+      },
+      {
+        "year": "Y2",
+        "logic": "Identifying Proper Fractions",
+        "templates": [
+          {
+            "questionEn": "What fraction of the shape is shaded?",
+            "questionMs": "Apakah pecahan bagi bahagian bentuk yang berwarna?",
+            "vars": {
+              "denom": "randomRange(3, 10)",
+              "num": "randomRange(1, denom - 1)",
+              "shape": "choose('circle', 'bar')",
+              "ans": "num + '/' + denom"
+            },
+            "answer": "ans",
+            "distractors": "scrambleChoices(ans, [ '1/2', '1/3', '2/3', '1/4', '3/4', '2/5', '3/5', '4/5', '1/10', '9/10' ])",
+            "visual": {
+              "type": "fraction-shape",
+              "params": {
+                "shape": "shape",
+                "parts": "denom",
+                "shaded": "num"
+              }
+            }
+          },
+          {
+            "questionEn": "What fraction of the shape is NOT shaded?",
+            "questionMs": "Apakah pecahan bagi bahagian bentuk yang TIDAK berwarna?",
+            "vars": {
+              "denom": "randomRange(3, 10)",
+              "num": "randomRange(1, denom - 1)",
+              "unshaded": "denom - num",
+              "shape": "choose('circle', 'bar')",
+              "ans": "unshaded + '/' + denom"
+            },
+            "answer": "ans",
+            "distractors": "scrambleChoices(ans, [ '1/2', '1/3', '2/3', '1/4', '3/4', '2/5', '3/5', '4/5', '1/10', '9/10' ])",
+            "visual": {
+              "type": "fraction-shape",
+              "params": {
+                "shape": "shape",
+                "parts": "denom",
+                "shaded": "num"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "year": "Y2",
+        "logic": "Comparing Fractions",
+        "template": {
+          "questionEn": "Which fraction is larger:\n{frac1} or {frac2}?",
+          "questionMs": "Pecahan manakah yang lebih besar:\n{frac1} atau {frac2}?",
+          "vars": {
+            "denom": "randomRange(4, 10)",
+            "num1": "randomRange(1, denom - 2)",
+            "num2": "randomRange(num1 + 1, denom - 1)",
+            "frac1": "num1 + '/' + denom",
+            "frac2": "num2 + '/' + denom",
+            "ans": "frac2"
+          },
+          "answer": "ans",
+          "distractors": "scrambleChoices(ans, [ frac1, '1/2', '1/4', '3/4' ])",
+          "visual": {
+            "type": "none",
+            "params": {}
+          }
+        }
+      },
+      {
+        "year": "Y3",
+        "logic": "Equivalent Fractions",
+        "template": {
+          "questionEn": "What is the equivalent fraction of {num}/{denom} with denominator {newDenom}?",
+          "questionMs": "Apakah pecahan setara bagi {num}/{denom} dengan penyebut {newDenom}?",
+          "vars": {
+            "num": "choose(1, 2, 3)",
+            "denom": "choose(3, 4, 5)",
+            "factor": "choose(2, 3)",
+            "newDenom": "denom * factor",
+            "ans": "(num * factor) + '/' + newDenom"
+          },
+          "answer": "ans",
+          "distractors": "scrambleChoices(ans, [ '1/' + newDenom, '2/' + newDenom, '3/' + newDenom, '4/' + newDenom, '5/' + newDenom ])",
+          "visual": {
+            "type": "none",
+            "params": {}
+          }
+        }
+      },
+      {
+        "year": "Y3",
+        "logic": "Simplifying Fractions",
+        "template": {
+          "questionEn": "Simplify this fraction to its simplest form:\n{num}/{denom}",
+          "questionMs": "Permudahkan pecahan ini kepada bentuk termudah:\n{num}/{denom}",
+          "vars": {
+            "simpleNum": "choose(1, 2, 3)",
+            "simpleDenom": "choose(2, 3, 4, 5)",
+            "factor": "choose(2, 3, 4)",
+            "num": "simpleNum * factor",
+            "denom": "simpleDenom * factor",
+            "ans": "simpleNum + '/' + simpleDenom"
+          },
+          "answer": "ans",
+          "distractors": "scrambleChoices(ans, [ '1/2', '1/3', '2/3', '1/4', '3/4', '1/5', '2/5' ])",
+          "visual": {
+            "type": "none",
+            "params": {}
+          }
+        }
+      },
+      {
+        "year": "Y3",
+        "logic": "Fractions and Decimals",
+        "template": {
+          "questionEn": "Convert the fraction {num}/10 to a decimal number:",
+          "questionMs": "Tukarkan pecahan {num}/10 kepada nombor perpuluhan:",
+          "vars": {
+            "num": "randomRange(1, 9)",
+            "ans": "num === 1 ? '0.1' : (num === 2 ? '0.2' : (num === 3 ? '0.3' : (num === 4 ? '0.4' : (num === 5 ? '0.5' : (num === 6 ? '0.6' : (num === 7 ? '0.7' : (num === 8 ? '0.8' : '0.9')))))))"
+          },
+          "answer": "ans",
+          "distractors": "scrambleChoices(ans, [ '0.0' + num, '1.0', '0.1' + num, '0.01' ])",
+          "visual": {
+            "type": "none",
+            "params": {}
+          }
+        }
+      },
+      {
+        "year": "Y4",
+        "logic": "Mixed Numbers & Improper Fractions",
+        "templates": [
+          {
+            "questionEn": "Convert this mixed number to an improper fraction:\n{whole} {num}/{denom}",
+            "questionMs": "Tukarkan nombor bercampur ini kepada pecahan tak wajar:\n{whole} {num}/{denom}",
+            "vars": {
+              "whole": "randomRange(1, 5)",
+              "denom": "choose(3, 4, 5, 6, 8)",
+              "num": "randomRange(1, denom - 1)",
+              "improperNum": "whole * denom + num",
+              "ans": "improperNum + '/' + denom"
+            },
+            "answer": "ans",
+            "distractors": "scrambleChoices(ans, [ (improperNum + 1) + '/' + denom, (improperNum - 1) + '/' + denom, (whole * denom) + '/' + denom, '1/2' ])",
+            "visual": {
+              "type": "none",
+              "params": {}
+            }
+          },
+          {
+            "questionEn": "Convert this improper fraction to a mixed number:\n{improperNum}/{denom}",
+            "questionMs": "Tukarkan pecahan tak wajar ini kepada nombor bercampur:\n{improperNum}/{denom}",
+            "vars": {
+              "whole": "randomRange(1, 5)",
+              "denom": "choose(3, 4, 5, 6, 8)",
+              "num": "randomRange(1, denom - 1)",
+              "improperNum": "whole * denom + num",
+              "ans": "whole + ' ' + num + '/' + denom"
+            },
+            "answer": "ans",
+            "distractors": "scrambleChoices(ans, [ (whole + 1) + ' ' + num + '/' + denom, whole + ' ' + (num === 1 ? 2 : 1) + '/' + denom, '1 1/2' ])",
+            "visual": {
+              "type": "none",
+              "params": {}
+            }
+          }
+        ]
+      },
+      {
+        "year": "Y4",
+        "logic": "Decimals up to 3 Decimal Places",
+        "templates": [
+          {
+            "questionEn": "Calculate in vertical form:\n{a} + {b}",
+            "questionMs": "Kira dalam bentuk lazim:\n{a} + {b}",
+            "vars": {
+              "val1": "randomRange(1000, 9999)",
+              "val2": "randomRange(1000, 9999)",
+              "a": "val1 / 1000",
+              "b": "val2 / 1000",
+              "ansVal": "(val1 + val2) / 1000",
+              "ans": "String(ansVal)"
+            },
+            "answer": "ans",
+            "distractors": "scrambleChoices(ans, [ String(ansVal + 0.1), String(ansVal - 0.1), String(ansVal + 0.001) ])",
+            "visual": {
+              "type": "vertical-math",
+              "params": {
+                "num1": "a",
+                "num2": "b",
+                "op": "'+'"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "year": "Y5",
+        "logic": "Multiplying Fractions",
+        "templates": [
+          {
+            "questionEn": "Calculate:\n{num}/{denom} of {total}",
+            "questionMs": "Kira:\n{num}/{denom} daripada {total}",
+            "vars": {
+              "denom": "choose(4, 5, 6, 8, 10)",
+              "size": "randomRange(5, 20)",
+              "total": "size * denom",
+              "num": "randomRange(1, denom - 1)",
+              "ans": "num * size"
+            },
+            "answer": "String(ans)",
+            "distractors": "generateChoices(ans, num)",
+            "visual": {
+              "type": "none",
+              "params": {}
+            }
+          }
+        ]
+      },
+      {
+        "year": "Y5",
+        "logic": "Percentages & Quantity calculations",
+        "templates": [
+          {
+            "questionEn": "What is {percent}% of RM{total}?",
+            "questionMs": "Apakah {percent}% daripada RM{total}?",
+            "vars": {
+              "percent": "choose(10, 20, 25, 50, 75)",
+              "total": "choose(100, 200, 300, 400, 500, 1000)",
+              "ans": "percent * total / 100"
+            },
+            "answer": "String(ans)",
+            "distractors": "scrambleChoices(ans, [ String(ans + 10), String(ans - 10), String(ans * 2), String(ans / 2) ])",
+            "visual": {
+              "type": "none",
+              "params": {}
+            }
+          }
+        ]
+      },
+      {
+        "year": "Y6",
+        "logic": "Division of Fractions",
+        "templates": [
+          {
+            "questionEn": "Calculate:\n({num}/{denom}) ÷ {whole}",
+            "questionMs": "Kira:\n({num}/{denom}) ÷ {whole}",
+            "vars": {
+              "num": "choose(1, 2, 3)",
+              "denom": "choose(3, 4, 5)",
+              "whole": "choose(2, 3)",
+              "newDenom": "denom * whole",
+              "ans": "num + '/' + newDenom"
+            },
+            "answer": "ans",
+            "distractors": "scrambleChoices(ans, [ num + '/' + denom, (num * whole) + '/' + denom, '1/2' ])",
+            "visual": {
+              "type": "none",
+              "params": {}
+            }
+          }
+        ]
+      },
+      {
+        "year": "Y6",
+        "logic": "Ratios & Proportions",
+        "templates": [
+          {
+            "questionEn": "If the ratio of red balls to blue balls is {r1}:{r2}, and there are {blue} blue balls, how many red balls are there?",
+            "questionMs": "Jika nisbah bola merah kepada bola biru ialah {r1}:{r2}, dan terdapat {blue} bola biru, berapakah bilangan bola merah?",
+            "vars": {
+              "r1": "choose(2, 3, 5)",
+              "r2": "choose(3, 4)",
+              "mult": "choose(5, 10, 20)",
+              "blue": "r2 * mult",
+              "ans": "r1 * mult"
+            },
+            "answer": "String(ans)",
+            "distractors": "scrambleChoices(ans, [ String(blue), String(r1 + r2), String(ans + 10) ])",
+            "visual": {
+              "type": "none",
+              "params": {}
+            }
+          }
+        ]
+      },
+      {
+        "year": "Y6",
+        "logic": "Percentage Increase & Decrease",
+        "templates": [
+          {
+            "questionEn": "A shirt costs RM{price}. The price increases by {percent}%. What is the new price?",
+            "questionMs": "Harga sehelai baju ialah RM{price}. Harganya meningkat sebanyak {percent}%. Apakah harga baharunya?",
+            "vars": {
+              "price": "choose(50, 80, 100, 120, 200)",
+              "percent": "choose(10, 15, 20, 25)",
+              "ans": "price + (price * percent / 100)"
+            },
+            "answer": "'RM' + ans",
+            "distractors": "scrambleChoices(ans, [ 'RM' + (price - (price * percent / 100)), 'RM' + (price + percent), 'RM' + (ans + 10) ])",
+            "visual": {
+              "type": "none",
+              "params": {}
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "en": "Money & Shopping",
+    "ms": "Wang & Membeli-belah",
+    "category": "Measurement",
+    "svg": "money",
+    "variations": [
+      {
+        "year": "Y1",
+        "logic": "Coin Value Identification",
+        "template": {
+          "questionEn": "Add these coins: {c1} sen + {c2} sen. What is the total?",
+          "questionMs": "Tambah syiling ini: {c1} sen + {c2} sen. Berapakah jumlahnya?",
+          "vars": {
+            "c1": "choose(10, 20, 50)",
+            "c2": "choose(5, 10, 20)",
+            "sum": "c1 + c2"
+          },
+          "answer": "sum + ' sen'",
+          "distractors": "scrambleChoices(ans, [ '15 sen', '25 sen', '30 sen', '40 sen', '60 sen', '70 sen' ])",
+          "visual": {
+            "type": "coins",
+            "params": {
+              "coin1": "c1",
+              "coin2": "c2"
+            }
+          }
+        }
+      },
+      {
+        "year": "Y1",
+        "logic": "Simple Shop & Change",
+        "template": {
+          "questionEn": "You pay RM{pay} to buy a toy that costs RM{itemPrice}. How much change do you get back?",
+          "questionMs": "Anda membayar RM{pay} untuk membeli mainan berharga RM{itemPrice}. Berapakah baki wang anda?",
+          "vars": {
+            "itemPrice": "randomRange(2, 8)",
+            "pay": "10",
+            "change": "pay - itemPrice"
+          },
+          "answer": "'RM' + change",
+          "distractors": "scrambleChoices(ans, [ 'RM2', 'RM3', 'RM4', 'RM5', 'RM6', 'RM7', 'RM8' ])",
+          "visual": {
+            "type": "none",
+            "params": {}
+          }
+        }
+      },
+      {
+        "year": "Y2",
+        "logic": "Decimal Money Addition",
+        "templates": [
+          {
+            "questionEn": "Calculate:\nRM{dollars1}.{centsStr1} + RM{dollars2}.{centsStr2}",
+            "questionMs": "Kira:\nRM{dollars1}.{centsStr1} + RM{dollars2}.{centsStr2}",
+            "vars": {
+              "dollars1": "randomRange(10, 50)",
+              "cents1": "choose(0, 50)",
+              "dollars2": "randomRange(5, 40)",
+              "cents2": "choose(0, 50)",
+              "centsStr1": "cents1 === 0 ? '00' : '50'",
+              "centsStr2": "cents2 === 0 ? '00' : '50'",
+              "totalVal": "(dollars1 + cents1/100) + (dollars2 + cents2/100)",
+              "ansDollars": "Math.floor(totalVal)",
+              "ansCents": "Math.round((totalVal - ansDollars) * 100)",
+              "ansCentsStr": "ansCents === 0 ? '00' : '50'",
+              "ans": "'RM' + ansDollars + '.' + ansCentsStr"
+            },
+            "answer": "ans",
+            "distractors": "scrambleChoices(ans, [ 'RM' + (ansDollars + 5) + '.' + ansCentsStr, 'RM' + (ansDollars - 5) + '.' + ansCentsStr, 'RM' + ansDollars + '.' + (ansCents === 0 ? '50' : '00') ])",
+            "visual": {
+              "type": "none",
+              "params": {}
+            }
+          },
+          {
+            "questionEn": "{name1} buys a book for RM{dollars1}.{centsStr1} and a pen for RM{dollars2}.{centsStr2}. How much does {name1} pay in total?",
+            "questionMs": "{name1} membeli buku dengan harga RM{dollars1}.{centsStr1} dan sebatang pen dengan harga RM{dollars2}.{centsStr2}. Berapakah jumlah wang yang dibayar oleh {name1}?",
+            "vars": {
+              "dollars1": "randomRange(5, 20)",
+              "cents1": "choose(0, 50)",
+              "dollars2": "randomRange(2, 10)",
+              "cents2": "choose(0, 50)",
+              "centsStr1": "cents1 === 0 ? '00' : '50'",
+              "centsStr2": "cents2 === 0 ? '00' : '50'",
+              "name1": "choose('Ali', 'Siti', 'Muthu', 'Chong')",
+              "totalVal": "(dollars1 + cents1/100) + (dollars2 + cents2/100)",
+              "ansDollars": "Math.floor(totalVal)",
+              "ansCents": "Math.round((totalVal - ansDollars) * 100)",
+              "ansCentsStr": "ansCents === 0 ? '00' : '50'",
+              "ans": "'RM' + ansDollars + '.' + ansCentsStr"
+            },
+            "answer": "ans",
+            "distractors": "scrambleChoices(ans, [ 'RM' + (ansDollars + 3) + '.' + ansCentsStr, 'RM' + (ansDollars - 2) + '.' + ansCentsStr, 'RM' + ansDollars + '.' + (ansCents === 0 ? '50' : '00') ])",
+            "visual": {
+              "type": "none",
+              "params": {}
+            }
+          }
+        ]
+      },
+      {
+        "year": "Y2",
+        "logic": "Calculating Change",
+        "templates": [
+          {
+            "questionEn": "You pay with a RM{bill} note for an item costing RM{price}. How much change will you get?",
+            "questionMs": "Anda membayar dengan wang kertas RM{bill} untuk barang berharga RM{price}. Berapakah baki wang yang anda akan dapat?",
+            "vars": {
+              "bill": "choose(20, 50, 100)",
+              "price": "randomRange(Math.floor(bill / 2), bill - 2)",
+              "change": "bill - price"
+            },
+            "answer": "'RM' + change",
+            "distractors": "scrambleChoices(ans, [ 'RM' + (change + 2), 'RM' + (change - 2), 'RM' + (change + 5) ])",
+            "visual": {
+              "type": "none",
+              "params": {}
+            }
+          },
+          {
+            "questionEn": "{name1} buys a shirt for RM{price}. If {name1} pays with a RM{bill} note, how much is the change?",
+            "questionMs": "{name1} membeli sehelai baju dengan harga RM{price}. Jika {name1} membayar dengan wang kertas RM{bill}, berapakah baki wangnya?",
+            "vars": {
+              "bill": "choose(50, 100)",
+              "price": "randomRange(25, 45)",
+              "change": "bill - price",
+              "name1": "choose('Ali', 'Siti', 'Muthu', 'Chong')"
+            },
+            "answer": "'RM' + change",
+            "distractors": "scrambleChoices(ans, [ 'RM' + (change + 3), 'RM' + (change - 3), 'RM' + (change + 10) ])",
+            "visual": {
+              "type": "none",
+              "params": {}
+            }
+          }
+        ]
+      },
+      {
+        "year": "Y3",
+        "logic": "Adding and Subtracting Money",
+        "templates": [
+          {
+            "questionEn": "Calculate:\nRM{a} + RM{b}",
+            "questionMs": "Kira:\nRM{a} + RM{b}",
+            "vars": {
+              "a": "randomRange(100, 500)",
+              "b": "randomRange(50, 400)",
+              "ans": "a + b"
+            },
+            "answer": "'RM' + ans",
+            "distractors": "scrambleChoices(ans, [ 'RM' + (ans + 10), 'RM' + (ans - 10), 'RM' + (ans + 50) ])",
+            "visual": {
+              "type": "none",
+              "params": {}
+            }
+          },
+          {
+            "questionEn": "{name1} had RM{price1}. He spent RM{price2} on food. How much change will {name1} get?",
+            "questionMs": "{name1} ada RM{price1}. Dia membelanjakan RM{price2} untuk makanan. Berapakah baki wang yang {name1} ada?",
+            "vars": {
+              "price1": "choose(100, 200, 500)",
+              "price2": "randomRange(15, 85)",
+              "name1": "choose('Ali', 'Siti', 'Muthu', 'Chong')",
+              "change": "price1 - price2"
+            },
+            "answer": "'RM' + change",
+            "distractors": "scrambleChoices(ans, [ 'RM' + (change + 5), 'RM' + (change - 5), 'RM' + (change + 10) ])",
+            "visual": {
+              "type": "none",
+              "params": {}
+            }
+          }
+        ]
+      },
+      {
+        "year": "Y4",
+        "logic": "Money Operations up to RM100,000",
+        "templates": [
+          {
+            "questionEn": "Calculate in vertical form:\nRM{a} + RM{b}",
+            "questionMs": "Kira dalam bentuk lazim:\nRM{a} + RM{b}",
+            "vars": {
+              "a": "randomRange(10000, 49000)",
+              "b": "randomRange(10000, 49000)",
+              "ans": "a + b"
+            },
+            "answer": "'RM' + ans",
+            "distractors": "scrambleChoices(ans, [ 'RM' + (ans + 100), 'RM' + (ans - 100), 'RM' + (ans + 1000) ])",
+            "visual": {
+              "type": "vertical-math",
+              "params": {
+                "num1": "a",
+                "num2": "b",
+                "op": "'+'"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "year": "Y5",
+        "logic": "Savings & Interest",
+        "templates": [
+          {
+            "questionEn": "{name} saves RM{principal} in a bank. If the bank pays simple interest of {rate}% per year, how much interest does {name} earn in 1 year?",
+            "questionMs": "{name} menyimpan RM{principal} dalam bank. Jika bank membayar faedah mudah sebanyak {rate}% setahun, berapakah faedah yang diterima {name} selepas 1 tahun?",
+            "vars": {
+              "principal": "choose(1000, 2000, 3000, 5000)",
+              "rate": "choose(2, 3, 4, 5)",
+              "name": "choose('Ali', 'Siti', 'Muthu', 'Chong')",
+              "ans": "principal * rate / 100"
+            },
+            "answer": "'RM' + ans",
+            "distractors": "scrambleChoices(ans, [ 'RM' + (ans + 10), 'RM' + (ans - 10), 'RM' + (ans + 50) ])",
+            "visual": {
+              "type": "none",
+              "params": {}
+            }
+          }
+        ]
+      },
+      {
+        "year": "Y6",
+        "logic": "Business Mathematics",
+        "templates": [
+          {
+            "questionEn": "{name} buys an item for RM{cost} and sells it for RM{sell}. How much profit did {name} make?",
+            "questionMs": "{name} membeli barang dengan harga RM{cost} dan menjualnya dengan harga RM{sell}. Berapakah keuntungan yang diperolehi {name}?",
+            "vars": {
+              "cost": "randomRange(100, 500)",
+              "profit": "randomRange(20, 95)",
+              "sell": "cost + profit",
+              "name": "choose('Ali', 'Siti', 'Muthu', 'Chong')"
+            },
+            "answer": "'RM' + profit",
+            "distractors": "scrambleChoices(ans, [ 'RM' + (profit + 10), 'RM' + (profit - 10), 'RM' + cost ])",
+            "visual": {
+              "type": "none",
+              "params": {}
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "en": "Telling Time",
+    "ms": "Masa & Waktu",
+    "category": "Measurement",
+    "svg": "clock",
+    "variations": [
+      {
+        "year": "Y1",
+        "logic": "Read Clock face",
+        "template": {
+          "questionEn": "What time is shown on this clock?",
+          "questionMs": "Apakah masa yang ditunjukkan pada jam ini?",
+          "vars": {
+            "hour": "randomRange(1, 12)",
+            "minute": "choose(0, 30)",
+            "timeStr": "minute === 0 ? hour + ':00' : hour + ':30'"
+          },
+          "answer": "timeStr",
+          "distractors": "scrambleChoices(ans, [ ((hour + 2) % 12 || 12) + ':' + (minute === 0 ? '00' : '30'), ((hour + 5) % 12 || 12) + ':' + (minute === 0 ? '30' : '00'), ((hour + 9) % 12 || 12) + ':' + (minute === 0 ? '00' : '30') ])",
+          "visual": {
+            "type": "clock",
+            "params": {
+              "hour": "hour",
+              "minute": "minute"
+            }
+          }
+        }
+      },
+      {
+        "year": "Y1",
+        "logic": "Day & Month sequences",
+        "template": {
+          "questionEn": "What day comes directly after {dayNameEn}?",
+          "questionMs": "Apakah hari selepas {dayNameMs}?",
+          "vars": {
+            "dayIdx": "randomRange(0, 5)",
+            "dayNameEn": "['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'][dayIdx]",
+            "nextDayEn": "['Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'][dayIdx]",
+            "dayNameMs": "['Isnin', 'Selasa', 'Rabu', 'Khamis', 'Jumaat', 'Sabtu'][dayIdx]",
+            "nextDayMs": "['Selasa', 'Rabu', 'Khamis', 'Jumaat', 'Sabtu', 'Ahad'][dayIdx]"
+          },
+          "answer": "nextDayEn + ' / ' + nextDayMs",
+          "distractors": "scrambleChoices(ans, [ 'Tuesday / Selasa', 'Wednesday / Rabu', 'Thursday / Khamis', 'Friday / Jumaat', 'Saturday / Sabtu', 'Sunday / Ahad' ])",
+          "visual": {
+            "type": "none",
+            "params": {}
+          }
+        }
+      },
+      {
+        "year": "Y2",
+        "logic": "Reading Clock Face (5-min intervals)",
+        "templates": [
+          {
+            "questionEn": "What time is shown on the clock face?",
+            "questionMs": "Apakah masa yang ditunjukkan pada muka jam?",
+            "vars": {
+              "hour": "randomRange(1, 12)",
+              "minute": "choose(5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55)",
+              "minStr": "minute < 10 ? '0' + minute : String(minute)",
+              "ans": "hour + ':' + minStr"
+            },
+            "answer": "ans",
+            "distractors": "scrambleChoices(ans, [ hour + ':' + (minute === 15 ? '45' : '15'), ((hour === 12 ? 1 : hour + 1) + ':' + minStr), (hour + ':' + (minute === 30 ? '00' : '30')) ])",
+            "visual": {
+              "type": "clock",
+              "params": {
+                "hour": "hour",
+                "minute": "minute"
+              }
+            }
+          },
+          {
+            "questionEn": "Ali starts swimming at {hour}:{minStr}. What time will it be in 30 minutes?",
+            "questionMs": "Ali mula berenang pada pukul {hour}:{minStr}. Pukul berapakah 30 minit selepas itu?",
+            "vars": {
+              "hour": "randomRange(1, 11)",
+              "minute": "choose(5, 10, 15, 20, 25)",
+              "minStr": "minute < 10 ? '0' + minute : String(minute)",
+              "endMin": "minute + 30",
+              "endMinStr": "String(endMin)",
+              "ans": "hour + ':' + endMinStr"
+            },
+            "answer": "ans",
+            "distractors": "scrambleChoices(ans, [ (hour + 1) + ':' + endMinStr, hour + ':' + (minute < 10 ? '0' + minute : String(minute)), hour + ':00' ])",
+            "visual": {
+              "type": "none",
+              "params": {}
+            }
+          }
+        ]
+      },
+      {
+        "year": "Y2",
+        "logic": "Duration word problems",
+        "template": {
+          "questionEn": "Ali starts reading at {hour}:00. He reads for {duration} hours. What time does he finish?",
+          "questionMs": "Ali mula membaca pada pukul {hour}:00. Dia membaca selama {duration} jam. Pukul berapakah dia selesai?",
+          "vars": {
+            "hour": "randomRange(1, 8)",
+            "duration": "randomRange(1, 4)",
+            "endHour": "hour + duration",
+            "ans": "endHour + ':00'"
+          },
+          "answer": "ans",
+          "distractors": "scrambleChoices(ans, [ (endHour + 1) + ':00', (endHour - 1) + ':00', endHour + ':30' ])",
+          "visual": {
+            "type": "none",
+            "params": {}
+          }
+        }
+      },
+      {
+        "year": "Y3",
+        "logic": "Reading Clock Face (minutes resolution)",
+        "template": {
+          "questionEn": "What time is shown on the clock face?",
+          "questionMs": "Apakah masa yang ditunjukkan pada muka jam?",
+          "vars": {
+            "hour": "randomRange(1, 12)",
+            "minute": "randomRange(1, 59)",
+            "minStr": "minute < 10 ? '0' + minute : String(minute)",
+            "ans": "hour + ':' + minStr"
+          },
+          "answer": "ans",
+          "distractors": "scrambleChoices(ans, [ hour + ':' + (minute === 15 ? '45' : '15'), ((hour === 12 ? 1 : hour + 1) + ':' + minStr), (hour + ':' + (minute === 30 ? '00' : '30')) ])",
+          "visual": {
+            "type": "clock",
+            "params": {
+              "hour": "hour",
+              "minute": "minute"
+            }
+          }
+        }
+      },
+      {
+        "year": "Y3",
+        "logic": "Time Duration",
+        "template": {
+          "questionEn": "How many hours and minutes are there from {startHour}:00 to {endHour}:{minStr}?",
+          "questionMs": "Berapakah bilangan jam dan minit yang ada dari pukul {startHour}:00 hingga {endHour}:{minStr}?",
+          "vars": {
+            "startHour": "randomRange(1, 4)",
+            "endHour": "randomRange(5, 8)",
+            "minute": "choose(15, 30, 45)",
+            "minStr": "String(minute)",
+            "diffHours": "endHour - startHour",
+            "ans": "diffHours + ' hours ' + minute + ' minutes / ' + diffHours + ' jam ' + minute + ' minit'"
+          },
+          "answer": "ans",
+          "distractors": "scrambleChoices(ans, [ (diffHours - 1) + ' hours ' + minute + ' minutes / ' + (diffHours - 1) + ' jam ' + minute + ' minit', diffHours + ' hours 00 minutes / ' + diffHours + ' jam 00 minit', (diffHours + 1) + ' hours ' + minute + ' minutes / ' + (diffHours + 1) + ' jam ' + minute + ' minit' ])",
+          "visual": {
+            "type": "none",
+            "params": {}
+          }
+        }
+      },
+      {
+        "year": "Y4",
+        "logic": "Time Unit Conversions",
+        "templates": [
+          {
+            "questionEn": "Convert {days} days to hours:",
+            "questionMs": "Tukarkan {days} hari kepada jam:",
+            "vars": {
+              "days": "randomRange(2, 6)",
+              "ans": "days * 24"
+            },
+            "answer": "ans + ' hours / ' + ans + ' jam'",
+            "distractors": "scrambleChoices(ans, [ String((days + 1) * 24) + ' hours / ' + String((days + 1) * 24) + ' jam', String(days * 12) + ' hours / ' + String(days * 12) + ' jam', '48 hours / 48 jam' ])",
+            "visual": {
+              "type": "none",
+              "params": {}
+            }
+          }
+        ]
+      },
+      {
+        "year": "Y4",
+        "logic": "Time Duration Addition & Subtraction",
+        "templates": [
+          {
+            "questionEn": "Calculate:\n{h1} hours {m1} minutes + {h2} hours {m2} minutes",
+            "questionMs": "Kira:\n{h1} jam {m1} minit + {h2} jam {m2} minit",
+            "vars": {
+              "h1": "randomRange(1, 4)",
+              "m1": "choose(15, 30, 45)",
+              "h2": "randomRange(1, 4)",
+              "m2": "choose(15, 30, 45)",
+              "totalMin": "m1 + m2",
+              "ansH": "h1 + h2 + (totalMin >= 60 ? 1 : 0)",
+              "ansM": "totalMin % 60",
+              "ans": "ansH + ' hours ' + ansM + ' minutes / ' + ansH + ' jam ' + ansM + ' minit'"
+            },
+            "answer": "ans",
+            "distractors": "scrambleChoices(ans, [ (ansH + 1) + ' hours ' + ansM + ' minutes / ' + (ansH + 1) + ' jam ' + ansM + ' minit', ansH + ' hours ' + (ansM === 0 ? 30 : 0) + ' minutes / ' + ansH + ' jam ' + (ansM === 0 ? 30 : 0) + ' minit' ])",
+            "visual": {
+              "type": "none",
+              "params": {}
+            }
+          }
+        ]
+      },
+      {
+        "year": "Y5",
+        "logic": "12-Hour vs 24-Hour Clock",
+        "templates": [
+          {
+            "questionEn": "Convert this 12-hour time to 24-hour format:\n{hour}:{minStr} PM",
+            "questionMs": "Tukarkan masa 12 jam ini kepada format 24 jam:\nPukul {hour}:{minStr} PM",
+            "vars": {
+              "hour": "randomRange(1, 11)",
+              "minute": "choose(15, 30, 45)",
+              "minStr": "String(minute)",
+              "ansHr": "hour + 12",
+              "ans": "'Jam ' + ansHr + minStr + ' / ' + ansHr + minStr + ' hours'"
+            },
+            "answer": "ans",
+            "distractors": "scrambleChoices(ans, [ 'Jam 0' + hour + minStr + ' / 0' + hour + minStr + ' hours', 'Jam ' + (ansHr - 1) + minStr + ' / ' + (ansHr - 1) + minStr + ' hours' ])",
+            "visual": {
+              "type": "none",
+              "params": {}
+            }
+          }
+        ]
+      },
+      {
+        "year": "Y5",
+        "logic": "Time Duration crossing AM/PM",
+        "templates": [
+          {
+            "questionEn": "How long is it from 10:30 AM to 2:15 PM?",
+            "questionMs": "Berapakah tempoh masa dari pukul 10:30 AM hingga 2:15 PM?",
+            "vars": {},
+            "answer": "'3 hours 45 minutes / 3 jam 45 minit'",
+            "distractors": "scrambleChoices(ans, [ '4 hours 45 minutes / 4 jam 45 minit', '3 hours 15 minutes / 3 jam 15 minit', '2 hours 45 minutes / 2 jam 45 minit' ])",
+            "visual": {
+              "type": "none",
+              "params": {}
+            }
+          }
+        ]
+      },
+      {
+        "year": "Y6",
+        "logic": "World Time Zone Duration",
+        "templates": [
+          {
+            "questionEn": "Kuala Lumpur is GMT+8. London is GMT+0. If it is 8:00 PM in Kuala Lumpur, what time is it in London?",
+            "questionMs": "Kuala Lumpur berada pada GMT+8. London berada pada GMT+0. Jika jam menunjukkan pukul 8:00 PM di Kuala Lumpur, pukul berapakah di London?",
+            "vars": {},
+            "answer": "'12:00 PM'",
+            "distractors": "scrambleChoices(ans, [ '4:00 PM', '8:00 AM', '12:00 AM' ])",
+            "visual": {
+              "type": "none",
+              "params": {}
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "en": "Measurement & Units",
+    "ms": "Ukuran & Unit",
+    "category": "Measurement",
+    "svg": "ruler",
+    "variations": [
+      {
+        "year": "Y1",
+        "logic": "Comparing lengths",
+        "template": {
+          "questionEn": "Which object is typically longer:\na {item1} or a {item2}?",
+          "questionMs": "Objek manakah yang biasanya lebih panjang:\n{item1Ms} atau {item2Ms}?",
+          "vars": {
+            "pairIdx": "randomRange(0, 7)",
+            "item1": "['pencil', 'train', 'bus', 'ruler', 'cruise ship', 'spoon', 'bridge', 'giraffe'][pairIdx]",
+            "item2": "['eraser', 'car', 'bicycle', 'paperclip', 'rowboat', 'toothpick', 'plank', 'cat'][pairIdx]",
+            "item1Ms": "['pensil', 'kereta api', 'bas', 'pembaris', 'kapal persiaran', 'sudu', 'jambatan', 'zirafah'][pairIdx]",
+            "item2Ms": "['pemadam', 'kereta', 'basikal', 'klip kertas', 'perahu dayung', 'pencungkil gigi', 'papan kayu', 'kucing'][pairIdx]",
+            "longerEn": "['pencil', 'train', 'bus', 'ruler', 'cruise ship', 'spoon', 'bridge', 'giraffe'][pairIdx]",
+            "longerMs": "['pensil', 'kereta api', 'bas', 'pembaris', 'kapal persiaran', 'sudu', 'jambatan', 'zirafah'][pairIdx]"
+          },
+          "answer": "longerEn + ' / ' + longerMs",
+          "distractors": "scrambleChoices(ans, [ 'eraser / pemadam', 'paperclip / klip kertas', 'ant / semut', 'car / kereta', 'bicycle / basikal', 'shoe / kasut', 'leaf / daun', 'pencil / pensil' ])",
+          "visual": {
+            "type": "none",
+            "params": {}
+          }
+        }
+      },
+      {
+        "year": "Y1",
+        "logic": "Relative mass & capacity",
+        "template": {
+          "questionEn": "Which object is heavier:\na {item1} or a {item2}?",
+          "questionMs": "Objek manakah yang lebih berat:\n{item1Ms} atau {item2Ms}?",
+          "vars": {
+            "pairIdx": "randomRange(0, 7)",
+            "item1": "['balloon', 'feather', 'leaf', 'pillow', 'plastic cup', 'mouse', 'skateboard', 'coin'][pairIdx]",
+            "item2": "['rock', 'brick', 'bowling ball', 'iron anvil', 'glass bottle', 'elephant', 'truck', 'treasure chest'][pairIdx]",
+            "item1Ms": "['belon', 'bulu pelepah', 'daun', 'bantal', 'cawan plastik', 'tikus', 'papan selaju', 'syiling'][pairIdx]",
+            "item2Ms": "['batu', 'bata', 'bola boling', 'landasan besi', 'botol kaca', 'gajah', 'lori', 'peti harta karun'][pairIdx]",
+            "heavierEn": "['rock', 'brick', 'bowling ball', 'iron anvil', 'glass bottle', 'elephant', 'truck', 'treasure chest'][pairIdx]",
+            "heavierMs": "['batu', 'bata', 'bola boling', 'landasan besi', 'botol kaca', 'gajah', 'lori', 'peti harta karun'][pairIdx]"
+          },
+          "answer": "heavierEn + ' / ' + heavierMs",
+          "distractors": "scrambleChoices(ans, [ 'balloon / belon', 'feather / bulu pelepah', 'leaf / daun', 'paper / kertas', 'pencil / pensil', 'pillow / bantal', 'coin / syiling', 'mouse / tikus' ])",
+          "visual": {
+            "type": "none",
+            "params": {}
+          }
+        }
+      },
+      {
+        "year": "Y2",
+        "logic": "Units of Length (m vs cm)",
+        "template": {
+          "questionEn": "Which measurement unit is best for the length of a {itemEn}?",
+          "questionMs": "Unit ukuran manakah yang paling sesuai untuk panjang bagi {itemMs}?",
+          "vars": {
+            "idx": "randomRange(0, 5)",
+            "itemEn": "['classroom whiteboard', 'pencil', 'school bus', 'eraser', 'swimming pool', 'paperclip'][idx]",
+            "itemMs": "['papan putih kelas', 'pensil', 'bas sekolah', 'pemadam', 'kolam renang', 'klip kertas'][idx]",
+            "unitEn": "['meters (m)', 'centimeters (cm)', 'meters (m)', 'centimeters (cm)', 'meters (m)', 'centimeters (cm)'][idx]",
+            "unitMs": "['meter (m)', 'sentimeter (cm)', 'meter (m)', 'sentimeter (cm)', 'meter (m)', 'sentimeter (cm)'][idx]"
+          },
+          "answer": "unitEn + ' / ' + unitMs",
+          "distractors": "scrambleChoices(ans, [ 'meters (m) / meter (m)', 'centimeters (cm) / sentimeter (cm)', 'kilograms (kg) / kilogram (kg)', 'liters (l) / liter (l)' ])",
+          "visual": {
+            "type": "none",
+            "params": {}
+          }
+        }
+      },
+      {
+        "year": "Y2",
+        "logic": "Units of Mass (kg vs g)",
+        "template": {
+          "questionEn": "Which measurement unit is best for the mass of a {itemEn}?",
+          "questionMs": "Unit ukuran manakah yang paling sesuai untuk jisim bagi {itemMs}?",
+          "vars": {
+            "idx": "randomRange(0, 5)",
+            "itemEn": "['bicycle', 'feather', 'bag of rice (10kg)', 'paperclip', 'adult person', 'single grape'][idx]",
+            "itemMs": "['basikal', 'bulu pelepah', 'beg beras (10kg)', 'klip kertas', 'orang dewasa', 'sebiji anggur'][idx]",
+            "unitEn": "['kilograms (kg)', 'grams (g)', 'kilograms (kg)', 'grams (g)', 'kilograms (kg)', 'grams (g)'][idx]",
+            "unitMs": "['kilogram (kg)', 'gram (g)', 'kilogram (kg)', 'gram (g)', 'kilogram (kg)', 'gram (g)'][idx]"
+          },
+          "answer": "unitEn + ' / ' + unitMs",
+          "distractors": "scrambleChoices(ans, [ 'kilograms (kg) / kilogram (kg)', 'grams (g) / gram (g)', 'meters (m) / meter (m)', 'liters (l) / liter (l)' ])",
+          "visual": {
+            "type": "none",
+            "params": {}
+          }
+        }
+      },
+      {
+        "year": "Y2",
+        "logic": "Units of Volume (L vs mL)",
+        "template": {
+          "questionEn": "Which measurement unit is best for the capacity of a {itemEn}?",
+          "questionMs": "Unit ukuran manakah yang paling sesuai untuk kapasiti bagi {itemMs}?",
+          "vars": {
+            "idx": "randomRange(0, 5)",
+            "itemEn": "['large bucket of water', 'spoon of syrup', 'bathtub', 'cup of tea', 'swimming pool', 'small juice box'][idx]",
+            "itemMs": "['baldi air besar', 'sudu sirap', 'tab mandi', 'secawan teh', 'kolam renang', 'kotak jus kecil'][idx]",
+            "unitEn": "['liters (L)', 'milliliters (mL)', 'liters (L)', 'milliliters (mL)', 'liters (L)', 'milliliters (mL)'][idx]",
+            "unitMs": "['liter (L)', 'mililiter (mL)', 'liter (L)', 'mililiter (mL)', 'liter (L)', 'mililiter (mL)'][idx]"
+          },
+          "answer": "unitEn + ' / ' + unitMs",
+          "distractors": "scrambleChoices(ans, [ 'liters (L) / liter (L)', 'milliliters (mL) / mililiter (mL)', 'meters (m) / meter (m)', 'kilograms (kg) / kilogram (kg)' ])",
+          "visual": {
+            "type": "none",
+            "params": {}
+          }
+        }
+      },
+      {
+        "year": "Y3",
+        "logic": "Length conversions (m vs cm, km vs m)",
+        "templates": [
+          {
+            "questionEn": "Convert {m} meters to centimeters:",
+            "questionMs": "Tukarkan {m} meter kepada sentimeter:",
+            "vars": {
+              "m": "randomRange(2, 9)",
+              "ans": "m * 100"
+            },
+            "answer": "String(ans) + ' cm'",
+            "distractors": "scrambleChoices(ans, [ String(m) + ' cm', String(m * 10) + ' cm', String(m * 1000) + ' cm' ])",
+            "visual": {
+              "type": "none",
+              "params": {}
+            }
+          },
+          {
+            "questionEn": "Convert {km} kilometers to meters:",
+            "questionMs": "Tukarkan {km} kilometer kepada meter:",
+            "vars": {
+              "km": "randomRange(2, 9)",
+              "ans": "km * 1000"
+            },
+            "answer": "String(ans) + ' m'",
+            "distractors": "scrambleChoices(ans, [ String(km) + ' m', String(km * 100) + ' m', String(km * 10) + ' m' ])",
+            "visual": {
+              "type": "none",
+              "params": {}
+            }
+          }
+        ]
+      },
+      {
+        "year": "Y3",
+        "logic": "Mass & Volume Conversions",
+        "template": {
+          "questionEn": "Convert {val} {unitEn1} to {unitEn2}:",
+          "questionMs": "Tukarkan {val} {unitMs1} kepada {unitMs2}:",
+          "vars": {
+            "val": "randomRange(2, 9)",
+            "type": "choose('mass', 'volume')",
+            "unitEn1": "type === 'mass' ? 'kilograms (kg)' : 'Liters (L)'",
+            "unitMs1": "type === 'mass' ? 'kilogram (kg)' : 'liter (L)'",
+            "unitEn2": "type === 'mass' ? 'grams (g)' : 'milliliters (mL)'",
+            "unitMs2": "type === 'mass' ? 'gram (g)' : 'mililiter (mL)'",
+            "ans": "val * 1000",
+            "unitLabel": "type === 'mass' ? 'g' : 'mL'"
+          },
+          "answer": "ans + ' ' + unitLabel",
+          "distractors": "scrambleChoices(ans, [ String(val) + ' ' + unitLabel, String(val * 100) + ' ' + unitLabel, String(val * 10) + ' ' + unitLabel ])",
+          "visual": {
+            "type": "none",
+            "params": {}
+          }
+        }
+      },
+      {
+        "year": "Y4",
+        "logic": "Metric Length Conversions",
+        "templates": [
+          {
+            "questionEn": "Convert {m} meters to centimeters:",
+            "questionMs": "Tukarkan {m} meter kepada sentimeter:",
+            "vars": {
+              "m": "randomRange(2, 15)",
+              "ans": "m * 100"
+            },
+            "answer": "ans + ' cm'",
+            "distractors": "scrambleChoices(ans, [ String(m * 10) + ' cm', String(m * 1000) + ' cm', String(m) + ' cm' ])",
+            "visual": {
+              "type": "none",
+              "params": {}
+            }
+          }
+        ]
+      },
+      {
+        "year": "Y4",
+        "logic": "Metric Mass & Capacity Conversions",
+        "templates": [
+          {
+            "questionEn": "Convert {L} Liters to milliliters:",
+            "questionMs": "Tukarkan {L} Liter kepada mililiter:",
+            "vars": {
+              "L": "randomRange(2, 9)",
+              "ans": "L * 1000"
+            },
+            "answer": "ans + ' mL'",
+            "distractors": "scrambleChoices(ans, [ String(L * 100) + ' mL', String(L) + ' mL', String(L * 10) + ' mL' ])",
+            "visual": {
+              "type": "none",
+              "params": {}
+            }
+          }
+        ]
+      },
+      {
+        "year": "Y5",
+        "logic": "Mixed Conversions with Decimals",
+        "templates": [
+          {
+            "questionEn": "Convert {val} kg to grams:",
+            "questionMs": "Tukarkan {val} kg kepada gram:",
+            "vars": {
+              "vInt": "randomRange(1, 9)",
+              "vDec": "choose(25, 5, 75)",
+              "val": "vInt + vDec/100",
+              "ans": "val * 1000"
+            },
+            "answer": "ans + ' g'",
+            "distractors": "scrambleChoices(ans, [ String(val * 100) + ' g', String(val * 10) + ' g', String(ans + 100) + ' g' ])",
+            "visual": {
+              "type": "none",
+              "params": {}
+            }
+          }
+        ]
+      },
+      {
+        "year": "Y6",
+        "logic": "Speed, Distance & Time",
+        "templates": [
+          {
+            "questionEn": "A car travels a distance of {dist} km in {time} hours. What is its average speed?",
+            "questionMs": "Sebuah kereta bergerak sejauh {dist} km dalam masa {time} jam. Apakah kelajuan puratanya?",
+            "vars": {
+              "speed": "choose(60, 70, 80, 90, 110)",
+              "time": "choose(2, 3, 4)",
+              "dist": "speed * time"
+            },
+            "answer": "speed + ' km/h / ' + speed + ' km/j'",
+            "distractors": "scrambleChoices(ans, [ String(speed - 10) + ' km/h / ' + String(speed - 10) + ' km/j', String(speed + 10) + ' km/h / ' + String(speed + 10) + ' km/j', String(dist) + ' km/h / ' + String(dist) + ' km/j' ])",
+            "visual": {
+              "type": "none",
+              "params": {}
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 9,
+    "en": "Shapes & Geometry",
+    "ms": "Bentuk & Geometri",
+    "category": "Geometry",
+    "svg": "geometry",
+    "variations": [
+      {
+        "year": "Y1",
+        "logic": "2D Shapes straight sides",
+        "template": {
+          "questionEn": "How many straight sides does this shape have?",
+          "questionMs": "Berapakah bilangan sisi lurus bagi bentuk ini?",
+          "vars": {
+            "shapeObj": "randomRange(0, 5)",
+            "shape": "['circle', 'triangle', 'square', 'rectangle', 'pentagon', 'hexagon'][shapeObj]",
+            "shapeMs": "['bulatan', 'segitiga', 'segi empat sama', 'segi empat tepat', 'pentagon', 'heksagon'][shapeObj]",
+            "sides": "[0, 3, 4, 4, 5, 6][shapeObj]"
+          },
+          "answer": "String(sides)",
+          "distractors": "scrambleChoices(ans, [ '0', '3', '4', '5', '6', '8' ])",
+          "visual": {
+            "type": "shapes",
+            "params": {
+              "shapeName": "shape"
+            }
+          }
+        }
+      },
+      {
+        "year": "Y1",
+        "logic": "2D Shapes recognition",
+        "template": {
+          "questionEn": "What is the name of this shape?",
+          "questionMs": "Apakah nama bagi bentuk ini?",
+          "vars": {
+            "shapeObj": "randomRange(0, 5)",
+            "shape": "['circle', 'triangle', 'square', 'rectangle', 'pentagon', 'hexagon'][shapeObj]",
+            "shapeMs": "['bulatan', 'segitiga', 'segi empat sama', 'segi empat tepat', 'pentagon', 'heksagon'][shapeObj]",
+            "shapeEnUpper": "shape.charAt(0).toUpperCase() + shape.slice(1)",
+            "shapeMsUpper": "shapeMs.charAt(0).toUpperCase() + shapeMs.slice(1)"
+          },
+          "answer": "shapeEnUpper + ' / ' + shapeMsUpper",
+          "distractors": "scrambleChoices(ans, [ 'Circle / Bulatan', 'Triangle / Segitiga', 'Square / Segi empat sama', 'Rectangle / Segi empat tepat', 'Pentagon / Pentagon', 'Hexagon / Heksagon' ])",
+          "visual": {
+            "type": "shapes",
+            "params": {
+              "shapeName": "shape"
+            }
+          }
+        }
+      },
+      {
+        "year": "Y1",
+        "logic": "3D Shapes rolling",
+        "template": {
+          "questionEn": "Can a {shapeEn} roll down a slide?",
+          "questionMs": "Adakah {shapeMs} boleh bergolek ke bawah gelongsor?",
+          "vars": {
+            "shapeIdx": "randomRange(0, 5)",
+            "shapeEn": "['sphere', 'cylinder', 'cone', 'cube', 'cuboid', 'pyramid'][shapeIdx]",
+            "shapeMs": "['sfera', 'silinder', 'kon', 'kiub', 'kuboid', 'piramid'][shapeIdx]",
+            "canRoll": "['yes', 'yes', 'yes', 'no', 'no', 'no'][shapeIdx]"
+          },
+          "answer": "canRoll === 'yes' ? 'yes / ya' : 'no / tidak'",
+          "distractors": "scrambleChoices(ans, [ canRoll === 'yes' ? 'no / tidak' : 'yes / ya', 'maybe / mungkin', 'sometimes / kadang-kadang' ])",
+          "visual": {
+            "type": "none",
+            "params": {}
+          }
+        }
+      },
+      {
+        "year": "Y1",
+        "logic": "3D Shapes stacking",
+        "template": {
+          "questionEn": "Can you stack a {shapeEn} on top of another?",
+          "questionMs": "Bolehkah anda menyusun {shapeMs} di atas satu sama lain?",
+          "vars": {
+            "shapeIdx": "randomRange(0, 3)",
+            "shapeEn": "['cube', 'cuboid', 'sphere', 'cone'][shapeIdx]",
+            "shapeMs": "['kiub', 'kuboid', 'sfera', 'kon'][shapeIdx]",
+            "canStack": "['yes', 'yes', 'no', 'no'][shapeIdx]"
+          },
+          "answer": "canStack === 'yes' ? 'yes / ya' : 'no / tidak'",
+          "distractors": "scrambleChoices(ans, [ canStack === 'yes' ? 'no / tidak' : 'yes / ya', 'maybe / mungkin', 'sometimes / kadang-kadang' ])",
+          "visual": {
+            "type": "none",
+            "params": {}
+          }
+        }
+      },
+      {
+        "year": "Y2",
+        "logic": "3D Shapes properties",
+        "template": {
+          "questionEn": "How many flat faces does a {shapeEn} have?",
+          "questionMs": "Berapakah bilangan muka rata bagi sebuah {shapeMs}?",
+          "vars": {
+            "idx": "randomRange(0, 3)",
+            "shapeEn": "['cube', 'cone', 'cylinder', 'sphere'][idx]",
+            "shapeMs": "['kiub', 'kon', 'silinder', 'sfera'][idx]",
+            "faces": "[6, 1, 2, 0][idx]"
+          },
+          "answer": "String(faces)",
+          "distractors": "scrambleChoices(ans, [ '0', '1', '2', '6', '8' ])",
+          "visual": {
+            "type": "none",
+            "params": {}
+          }
+        }
+      },
+      {
+        "year": "Y2",
+        "logic": "2D Semicircle & Quarter circle",
+        "template": {
+          "questionEn": "Which shape is formed by cutting a circle exactly in half?",
+          "questionMs": "Bentuk manakah yang terhasil apabila memotong bulatan kepada dua bahagian yang sama rata?",
+          "vars": {},
+          "answer": "'Semicircle / Semibulatan'",
+          "distractors": "scrambleChoices(ans, [ 'Quarter circle / Suku bulatan', 'Triangle / Segitiga', 'Square / Segi empat sama' ])",
+          "visual": {
+            "type": "none",
+            "params": {}
+          }
+        }
+      },
+      {
+        "year": "Y3",
+        "logic": "Angle classification",
+        "template": {
+          "questionEn": "Which angle is smaller than a right angle?",
+          "questionMs": "Sudut manakah yang lebih kecil daripada sudut tegak?",
+          "vars": {},
+          "answer": "'Acute angle / Sudut tirus'",
+          "distractors": "scrambleChoices(ans, [ 'Obtuse angle / Sudut cakah', 'Right angle / Sudut tegak', 'Straight angle / Sudut lurus' ])",
+          "visual": {
+            "type": "none",
+            "params": {}
+          }
+        }
+      },
+      {
+        "year": "Y3",
+        "logic": "Parallel & Perpendicular lines",
+        "template": {
+          "questionEn": "Which lines never cross each other and remain the same distance apart?",
+          "questionMs": "Garisan manakah yang tidak akan bersilang dan sentiasa berjarak sama?",
+          "vars": {},
+          "answer": "'Parallel lines / Garisan selari'",
+          "distractors": "scrambleChoices(ans, [ 'Perpendicular lines / Garisan serenjang', 'Intersecting lines / Garisan bersilang', 'Horizontal lines / Garisan mengufuk' ])",
+          "visual": {
+            "type": "none",
+            "params": {}
+          }
+        }
+      },
+      {
+        "year": "Y4",
+        "logic": "Area & Perimeter of Rectangles",
+        "templates": [
+          {
+            "questionEn": "Find the area of a rectangle with length {l} cm and width {w} cm:",
+            "questionMs": "Cari luas bagi segi empat tepat dengan panjang {l} cm dan lebar {w} cm:",
+            "vars": {
+              "l": "randomRange(6, 12)",
+              "w": "randomRange(3, 5)",
+              "ans": "l * w"
+            },
+            "answer": "ans + ' cm²'",
+            "distractors": "scrambleChoices(ans, [ String(2 * (l + w)) + ' cm²', String(l * w + 5) + ' cm²', String(l * w - 5) + ' cm²' ])",
+            "visual": {
+              "type": "grid",
+              "params": {
+                "width": "l",
+                "height": "w",
+                "rows": "w",
+                "cols": "l"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "year": "Y4",
+        "logic": "Lines of Symmetry",
+        "templates": [
+          {
+            "questionEn": "How many lines of symmetry does a regular square have?",
+            "questionMs": "Berapakah bilangan paksi simetri bagi sebuah segi empat sama?",
+            "vars": {},
+            "answer": "4",
+            "distractors": "scrambleChoices(ans, [ '1', '2', '3', '8' ])",
+            "visual": {
+              "type": "none",
+              "params": {}
+            }
+          }
+        ]
+      },
+      {
+        "year": "Y5",
+        "logic": "Volume of Cubes & Cuboids",
+        "templates": [
+          {
+            "questionEn": "Find the volume of a cuboid with length {l} cm, width {w} cm, and height {h} cm:",
+            "questionMs": "Cari isi padu bagi sebuah kuboid dengan panjang {l} cm, lebar {w} cm, dan tinggi {h} cm:",
+            "vars": {
+              "l": "randomRange(4, 8)",
+              "w": "randomRange(2, 4)",
+              "h": "randomRange(2, 5)",
+              "ans": "l * w * h"
+            },
+            "answer": "ans + ' cm³'",
+            "distractors": "scrambleChoices(ans, [ String(l * w + h) + ' cm³', String(ans + 10) + ' cm³', String(ans - 10) + ' cm³' ])",
+            "visual": {
+              "type": "none",
+              "params": {}
+            }
+          }
+        ]
+      },
+      {
+        "year": "Y5",
+        "logic": "Angles on Line & Point",
+        "templates": [
+          {
+            "questionEn": "Find the missing angle x on a straight line if the other angle is {angle}°:",
+            "questionMs": "Cari sudut x yang tertinggal pada garis lurus jika sudut yang satu lagi ialah {angle}°:",
+            "vars": {
+              "angle": "choose(30, 45, 60, 90, 120, 135, 150)",
+              "ans": "180 - angle"
+            },
+            "answer": "ans + '°'",
+            "distractors": "scrambleChoices(ans, [ String(360 - angle) + '°', String(90 - angle) + '°', String(ans + 10) + '°' ])",
+            "visual": {
+              "type": "none",
+              "params": {}
+            }
+          }
+        ]
+      },
+      {
+        "year": "Y6",
+        "logic": "Angle properties of composite shapes",
+        "templates": [
+          {
+            "questionEn": "What is the sum of the interior angles of a quadrilateral (4-sided shape)?",
+            "questionMs": "Apakah jumlah sudut pedalaman bagi sebuah segi empat (bentuk 4 sisi)?",
+            "vars": {},
+            "answer": "'360°'",
+            "distractors": "scrambleChoices(ans, [ '180°', '90°', '540°' ])",
+            "visual": {
+              "type": "none",
+              "params": {}
+            }
+          }
+        ]
+      },
+      {
+        "year": "Y6",
+        "logic": "Introduction to Algebra",
+        "templates": [
+          {
+            "questionEn": "Simplify this expression:\n3a + 5b - a + 2b",
+            "questionMs": "Permudahkan ungkapan ini:\n3a + 5b - a + 2b",
+            "vars": {},
+            "answer": "'2a + 7b'",
+            "distractors": "scrambleChoices(ans, [ '4a + 7b', '2a + 3b', '4a + 3b' ])",
+            "visual": {
+              "type": "none",
+              "params": {}
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 10,
+    "en": "Data & Graphs",
+    "ms": "Data & Graf",
+    "category": "Statistics",
+    "svg": "bar-chart",
+    "variations": [
+      {
+        "year": "Y1",
+        "logic": "Reading picture graphs",
+        "template": {
+          "questionEn": "Look at the pictograph. How many {targetEn}s are there?",
+          "questionMs": "Rujuk piktograf. Berapakah bilangan {targetMs}?",
+          "vars": {
+            "apples": "randomRange(2, 5)",
+            "bananas": "randomRange(2, 5)",
+            "targetEn": "choose('apple', 'banana')",
+            "targetMs": "targetEn === 'apple' ? 'epal' : 'pisang'",
+            "ans": "targetEn === 'apple' ? apples : bananas"
+          },
+          "answer": "String(ans)",
+          "distractors": "generateChoices(ans, 1)",
+          "visual": {
+            "type": "pictograph",
+            "params": {
+              "apples": "apples",
+              "bananas": "bananas"
+            }
+          }
+        }
+      },
+      {
+        "year": "Y2",
+        "logic": "Interpretation of Scaled Bar Graphs",
+        "template": {
+          "questionEn": "Look at the bar graph. If each block represents {scale} books, how many books does {name} have with {blocks} blocks?",
+          "questionMs": "Rujuk graf bar. Jika setiap blok mewakili {scale} buah buku, berapakah bilangan buku yang dimiliki oleh {name} yang mempunyai {blocks} blok?",
+          "vars": {
+            "scale": "choose(2, 5, 10)",
+            "blocks": "randomRange(2, 6)",
+            "name": "choose('Ali', 'Siti', 'Muthu', 'Chong')",
+            "ans": "scale * blocks"
+          },
+          "answer": "String(ans)",
+          "distractors": "generateChoices(ans, scale)",
+          "visual": {
+            "type": "none",
+            "params": {}
+          }
+        }
+      },
+      {
+        "year": "Y3",
+        "logic": "Pictographs and Bar Graphs reading",
+        "template": {
+          "questionEn": "Look at the pictograph. If each key represents {scale} items, how many items are there in total if the graph has {blocks} keys?",
+          "questionMs": "Rujuk piktograf. Jika setiap petunjuk mewakili {scale} barangan, berapakah jumlah barangan kesemuanya jika graf mempunyai {blocks} petunjuk?",
+          "vars": {
+            "scale": "choose(3, 4, 5, 10)",
+            "blocks": "randomRange(2, 6)",
+            "ans": "scale * blocks"
+          },
+          "answer": "String(ans)",
+          "distractors": "generateChoices(ans, scale)",
+          "visual": {
+            "type": "none",
+            "params": {}
+          }
+        }
+      },
+      {
+        "year": "Y4",
+        "logic": "Frequency Tables & Double Bar Graphs",
+        "templates": [
+          {
+            "questionEn": "A bar graph shows Class A has {a} books and Class B has {b} books. How many more books does Class A have?",
+            "questionMs": "Graf bar menunjukkan Kelas A ada {a} buku dan Kelas B ada {b} buku. Berapakah lebihnya buku Kelas A?",
+            "vars": {
+              "b": "choose(30, 40, 50)",
+              "a": "b + choose(10, 15, 20, 25)",
+              "ans": "a - b"
+            },
+            "answer": "String(ans)",
+            "distractors": "scrambleChoices(ans, [ String(ans + 5), String(ans - 5), String(a), String(b) ])",
+            "visual": {
+              "type": "none",
+              "params": {}
+            }
+          }
+        ]
+      },
+      {
+        "year": "Y5",
+        "logic": "Averages (Mean)",
+        "templates": [
+          {
+            "questionEn": "Find the average (mean) of: {v1}, {v2}, {v3}, and {v4}:",
+            "questionMs": "Cari purata (min) bagi: {v1}, {v2}, {v3}, dan {v4}:",
+            "vars": {
+              "sum": "choose(40, 80, 100, 120, 200)",
+              "ans": "sum / 4",
+              "v1": "ans - 3",
+              "v2": "ans + 5",
+              "v3": "ans - 2",
+              "v4": "ans"
+            },
+            "answer": "String(ans)",
+            "distractors": "scrambleChoices(ans, [ String(ans + 2), String(ans - 2), String(sum) ])",
+            "visual": {
+              "type": "none",
+              "params": {}
+            }
+          }
+        ]
+      },
+      {
+        "year": "Y6",
+        "logic": "Pie Charts Interpretation",
+        "templates": [
+          {
+            "questionEn": "A pie chart shows sports preferences of {total} pupils. If {percent}% prefer football, how many pupils prefer football?",
+            "questionMs": "Carta pai menunjukkan sukan kegemaran bagi {total} orang murid. Jika {percent}% memilih bola sepak, berapakah bilangan murid yang memilih bola sepak?",
+            "vars": {
+              "percent": "choose(10, 20, 25, 50)",
+              "total": "choose(100, 200, 300, 400)",
+              "ans": "percent * total / 100"
+            },
+            "answer": "String(ans)",
+            "distractors": "scrambleChoices(ans, [ String(ans + 10), String(ans - 10), String(percent) ])",
+            "visual": {
+              "type": "none",
+              "params": {}
+            }
+          }
+        ]
+      }
+    ]
+  }
+]
