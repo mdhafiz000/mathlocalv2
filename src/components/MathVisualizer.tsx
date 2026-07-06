@@ -695,13 +695,42 @@ const VerticalMathVisualizer: React.FC<{
     return (
       <div className="flex items-center justify-center my-4 w-full">
         <div 
-          className="font-mono text-3xl text-slate-800 bg-white border-4 border-slate-800 rounded-3xl p-6 shadow-chunky text-left leading-none"
+          className="font-mono text-3xl text-slate-800 bg-white border-4 border-slate-800 rounded-3xl p-6 shadow-chunky leading-none inline-flex flex-col items-end"
           style={{ minWidth: '180px', letterSpacing: '4px' }}
         >
-          <div className="pl-12 pb-1 border-b-4 border-slate-800 w-fit">?</div>
-          <div className="pt-2 flex items-center">
-            <span className="text-indigo-600 font-bold mr-2">{num2}</span>
-            <span className="border-l-4 border-slate-800 pl-3 py-1">{num1}</span>
+          {/* Top row: Quotient (aligned with dividend) */}
+          <div className="flex justify-end w-full mb-1">
+            <div className="pr-2 select-none text-slate-800">
+              ?
+            </div>
+          </div>
+          
+          {/* Bottom row: Divisor, Curve, Dividend */}
+          <div className="flex items-stretch w-full justify-end">
+            {/* Divisor */}
+            <div className="text-indigo-600 font-bold mr-2 select-none flex items-center">
+              {num2}
+            </div>
+            {/* Curve */}
+            <div className="flex items-center">
+              <svg 
+                className="w-3 text-slate-800 self-stretch" 
+                viewBox="0 0 12 40" 
+                fill="none" 
+                stroke="currentColor" 
+                strokeWidth="4.5" 
+                strokeLinecap="round"
+                preserveAspectRatio="none"
+              >
+                <path d="M10 2 C 2 10, 2 30, 10 38" />
+              </svg>
+            </div>
+            {/* Dividend with top border */}
+            <div 
+              className="border-t-4 border-slate-800 pt-2 pl-3 pr-2 font-bold"
+            >
+              {num1}
+            </div>
           </div>
         </div>
       </div>
@@ -719,11 +748,12 @@ const VerticalMathVisualizer: React.FC<{
           <span className="font-bold text-indigo-600">{opSymbol}</span>
           <span>{pad2}</span>
         </div>
-        <div className="pt-2 text-indigo-600 font-bold pr-6">?</div>
+        <div className="pt-2 pb-1 border-b-4 border-slate-800 text-indigo-600 font-bold pr-6">?</div>
       </div>
     </div>
   );
 };
+
 
 // ==========================================
 // 10. NUMBER BOND VISUALIZER (Singapore Style)
