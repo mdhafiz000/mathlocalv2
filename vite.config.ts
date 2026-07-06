@@ -37,6 +37,7 @@ function saveCurriculumPlugin(): Plugin {
 }
 
 // https://vite.dev/config/
+// Trigger redeployment
 export default defineConfig({
   plugins: [react(), saveCurriculumPlugin()],
 })
