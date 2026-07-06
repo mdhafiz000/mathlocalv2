@@ -237,7 +237,7 @@ export default function App() {
     return (
       <div className="app-main flex items-center justify-center">
         <div className="chunky-card max-w-md w-full text-center">
-          <h1 className="text-primary mb-2">👋 MatX</h1>
+          <h1 className="text-primary mb-2">👋 MathX</h1>
           <p className="mb-6 font-medium text-slate-600">
             Welcome to Free Math Quiz. Up to 4 players on 1 device.<br/>
             Let's create the first player account! We can add your friends later.
